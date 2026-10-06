@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITIL Studienoter</title>
+<meta name="color-scheme" content="dark">
+<script>
+/* Standard-zoom 140 % på store skærme. Skaleres ned, så layoutet altid kan være der, og slås fra på mobil. */
+(function(){
+  var MAX=1.4, LAYOUT=1164;
+  function fit(){
+    var w=window.innerWidth, z=w<=900?1:Math.max(1,Math.min(MAX,w/LAYOUT));
+    document.documentElement.style.zoom=z;
+  }
+  fit(); window.addEventListener('resize',fit);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090b;
+  --panel:#0f0f12;
+  --panel-2:#16161a;
+  --panel-3:#1d1d22;
+  --line:#1f1f24;
+  --line-2:#2c2c33;
+  --text:#e8e8ec;
+  --muted:#9a9aa3;
+  --dim:#5f5f68;
+  --accent:#ff8a4c;
+  --accent-a:255,138,76;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:32px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:rgba(var(--accent-a),.3)}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.02em;line-height:1.2}
+p{margin:0}
+.mono{font-family:"Geist Mono",ui-monospace,monospace}
+
+/* layout */
+.layout{display:grid;grid-template-columns:200px minmax(0,780px);gap:72px;max-width:1100px;margin:0 auto;padding:0 32px}
+aside{position:sticky;top:0;align-self:start;padding-top:96px}
+aside .brand{font:500 13px "Geist Mono",monospace;color:var(--text);margin-bottom:28px}
+aside ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+aside a{display:flex;gap:12px;text-decoration:none;font-size:13px;color:var(--dim);padding:5px 0;transition:color .15s}
+aside a span{font-family:"Geist Mono",monospace;font-size:11px;padding-top:1px}
+aside a:hover,aside a.on{color:var(--text)}
+aside a.on span{color:var(--accent)}
+main{padding:96px 0 120px;min-width:0}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:0;padding:0 16px}
+  aside{display:none}
+  main{padding-top:56px}
+}
+
+header h1{font-size:clamp(34px,6vw,52px);letter-spacing:-.035em}
+header p{color:var(--muted);margin-top:14px;max-width:52ch;font-size:16px}
+header .meta{display:flex;gap:20px;margin-top:28px;font:12px "Geist Mono",monospace;color:var(--dim)}
+
+section{padding-top:112px}
+.label{font:12px "Geist Mono",monospace;color:var(--dim);margin-bottom:10px}
+h2{font-size:28px}
+.lead{color:var(--muted);margin-top:10px;max-width:60ch}
+h3{font-size:15px;font-weight:500;margin:48px 0 14px;color:var(--text)}
+.cap{font-size:13px;color:var(--dim);margin-top:12px}
+
+.fig{margin-top:28px;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:28px}
+.scroll{overflow-x:auto}
+.scroll svg{min-width:620px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:Geist,system-ui,sans-serif}
+.t{fill:var(--text)} .m{fill:var(--muted)} .d{fill:var(--dim)} .a{fill:var(--accent)}
+.mono-t{font-family:"Geist Mono",monospace!important}
+
+.dev{margin-top:32px;padding:2px 0 2px 18px;border-left:1px solid var(--accent);color:var(--muted);max-width:64ch}
+.dev b{color:var(--text);font-weight:500}
+.dev .k{display:block;font:11px "Geist Mono",monospace;color:var(--accent);margin-bottom:4px;letter-spacing:.04em}
+.warn{margin-top:20px;font-size:14px;color:var(--muted);padding:14px 16px;border:1px solid var(--line-2);border-radius:8px}
+.warn b{color:var(--text);font-weight:500}
+
+/* generic columns */
+.cols{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.cols > div{background:var(--panel);padding:20px}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:repeat(3,1fr)}
+.c4{grid-template-columns:repeat(4,1fr)}
+.c5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:760px){.c3,.c4,.c5{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.c2,.c3,.c4,.c5{grid-template-columns:1fr}}
+.k{font:11px "Geist Mono",monospace;color:var(--dim);letter-spacing:.04em}
+.cols h4{margin:6px 0 8px;font-size:15px;font-weight:500}
+.cols p{font-size:13.5px;color:var(--muted)}
+.cols ul{list-style:none;margin:10px 0 0;padding:0;font-size:13.5px;color:var(--muted);display:grid;gap:4px}
+.cols ul li::before{content:"–  ";color:var(--dim)}
+.tags{margin-top:12px;font:12px "Geist Mono",monospace;color:var(--dim)}
+
+/* ledger */
+.ledger{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.ledger > div{padding:20px 22px;background:var(--panel)}
+.ledger > div + div{border-left:1px solid var(--line)}
+.ledger .k{margin-bottom:12px;display:block}
+.ledger .row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.ledger .row:first-of-type{border-top:0}
+.ledger .row span:last-child{font-family:"Geist Mono",monospace;color:var(--dim)}
+.ledger .plus .k{color:var(--accent)}
+@media (max-width:560px){.ledger{grid-template-columns:1fr}.ledger > div + div{border-left:0;border-top:1px solid var(--line)}}
+
+/* risk */
+.risk{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;margin-top:28px}
+@media (max-width:760px){.risk{grid-template-columns:1fr}}
+.heat{display:grid;grid-template-columns:22px repeat(5,1fr);gap:3px}
+.heat .cell{aspect-ratio:1.25;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;padding:6px 7px;font:11px "Geist Mono",monospace;color:var(--dim)}
+.heat .cell.hot{color:var(--text)}
+.heat .ax{display:flex;align-items:center;justify-content:center;font:11px "Geist Mono",monospace;color:var(--dim)}
+.heat .pins{display:flex;gap:3px;flex-wrap:wrap}
+.heat .pin{font:500 10px "Geist Mono",monospace;color:var(--bg);background:var(--text);padding:0 4px;border-radius:3px}
+.axes{display:flex;justify-content:space-between;font:11px "Geist Mono",monospace;color:var(--dim);margin-top:10px;padding-left:25px}
+.swot{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
+.swot div{padding:16px;min-height:100px}
+.swot div:nth-child(odd){border-right:1px solid var(--line-2)}
+.swot div:nth-child(-n+2){border-bottom:1px solid var(--line-2)}
+.swot b{display:block;font-size:26px;font-weight:400;letter-spacing:-.02em}
+.swot span{font-size:12.5px;color:var(--muted)}
+.swot .hl b{color:var(--accent)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+.tbl{margin-top:20px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.tbl table{min-width:720px}
+th{text-align:left;font:400 11px "Geist Mono",monospace;color:var(--dim);letter-spacing:.04em;padding:14px 14px 10px;border-bottom:1px solid var(--line)}
+td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:"Geist Mono",monospace;color:var(--dim)}
+td.s{color:var(--text)}
+.ri{font-family:"Geist Mono",monospace;color:var(--text);white-space:nowrap}
+.ri.hi{color:var(--accent)}
+
+/* svs */
+.svs{display:grid;grid-template-columns:110px 1fr 110px;align-items:center;gap:0;margin-top:28px}
+.svs .io{text-align:center;font-size:14px}
+.svs .io .k{display:block;margin-top:4px}
+.svs .io.out{color:var(--accent)}
+.svs .box{border:1px solid var(--line-2);border-radius:10px;background:var(--panel);overflow:hidden;position:relative}
+.svs .box::before,.svs .box::after{content:"";position:absolute;top:50%;width:18px;border-top:1px solid var(--dim)}
+.svs .box::before{left:-22px}.svs .box::after{right:-22px}
+.layer{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-top:1px solid var(--line);font-size:14px}
+.layer:first-child{border-top:0}
+.layer span:last-child{color:var(--dim);font-size:12.5px;text-align:right}
+.no{font-family:"Geist Mono",monospace;color:var(--dim);margin-right:10px;font-size:12px}
+.chain{border-top:1px solid var(--line);background:var(--panel-2);padding:14px 18px 18px}
+.chain .head{display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px}
+.chain .head span:last-child{color:var(--dim);font-size:12.5px}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.act{border:1px solid var(--line-2);border-radius:6px;padding:10px 12px;background:var(--panel)}
+.act b{display:block;font-weight:500;font-size:13.5px}
+.act small{color:var(--dim);font-size:12px}
+.acts8{grid-template-columns:repeat(4,1fr)}
+.act .no{display:block;font-size:11px;margin-bottom:2px}
+@media (max-width:760px){.svs{grid-template-columns:1fr;gap:12px}.svs .box::before,.svs .box::after{display:none}.acts,.acts8{grid-template-columns:1fr 1fr}}
+
+.principles{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.principles li{display:grid;grid-template-columns:40px 1fr 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px}
+.principles li span:first-child{font-family:"Geist Mono",monospace;color:var(--dim);font-size:12px;padding-top:2px}
+.principles li span:last-child{color:var(--muted)}
+@media (max-width:560px){.principles li{grid-template-columns:32px 1fr}.principles li span:last-child{grid-column:2}}
+
+.cheat td:first-child{color:var(--text)}
+.pt{min-width:980px;table-layout:fixed;font-size:13px}
+.pt td{padding:14px 12px}
+.pt th:first-child{width:90px}
+.pt tbody th{text-align:left;font:400 11px "Geist Mono",monospace;color:var(--dim);letter-spacing:.04em;padding:14px;border-bottom:1px solid var(--line);vertical-align:top}
+.pt tr:last-child th{border-bottom:0}
+.pt td.s{color:var(--text)}
+.pt .ri{white-space:normal;font-family:Geist,system-ui,sans-serif;font-weight:500}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.tl li{display:flex;gap:7px}
+.tl li::before{content:"–";color:var(--dim);flex:none}
+.poster{margin-top:28px;background:#fff;border-radius:10px;padding:20px;border:1px solid var(--line)}
+.poster img{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
+.plist{display:block!important;columns:2;column-gap:28px}
+.plist li{break-inside:avoid;padding:2px 0}
+@media (max-width:560px){.plist{columns:1}}
+.gp{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--line)}
+.gp > li{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:28px 0;border-bottom:1px solid var(--line)}
+.gp .n{font:500 22px "Geist Mono",monospace;color:var(--accent);line-height:1.2}
+.gp h4{margin:0;font-size:18px;font-weight:500;letter-spacing:-.01em}
+.gp h4 small{display:block;font-size:12.5px;font-family:"Geist Mono",monospace;color:var(--dim);font-weight:400;margin-top:3px}
+.gp p{color:var(--muted);margin-top:10px;max-width:62ch}
+.gp .q{margin-top:12px;font-size:14px;color:var(--text)}
+.gp .q::before{content:"Spørg: ";font:11px "Geist Mono",monospace;color:var(--dim);letter-spacing:.04em}
+.gp .ex{margin-top:6px;font-size:14px;color:var(--muted)}
+.gp .ex::before{content:"Udvikler: ";font:11px "Geist Mono",monospace;color:var(--accent);letter-spacing:.04em}
+.gp .fig{margin-top:16px;padding:20px}
+.gp > li > div{min-width:0}
+@media (max-width:560px){.gp > li{grid-template-columns:1fr;gap:6px}}
+
+footer{margin-top:120px;padding-top:24px;border-top:1px solid var(--line);font:12px "Geist Mono",monospace;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside>
+  <div class="brand">ITIL 5</div>
+  <ol id="toc">
+    <li><a href="#value"><span>01</span>Value</a></li>
+    <li><a href="#roles"><span>02</span>Provider & consumer</a></li>
+    <li><a href="#sla"><span>03</span>SLA</a></li>
+    <li><a href="#support"><span>04</span>Support-niveauer</a></li>
+    <li><a href="#risk"><span>05</span>Risikovurdering</a></li>
+    <li><a href="#practices"><span>06</span>Practices</a></li>
+    <li><a href="#svs"><span>07</span>Value system &amp; lifecycle</a></li>
+    <li><a href="#dims"><span>08</span>De fire dimensioner</a></li>
+    <li><a href="#cheat"><span>09</span>Cheat sheet</a></li>
+    <li><a href="#op"><span>10</span>Organisationer &amp; mennesker</a></li>
+    <li><a href="#it"><span>11</span>Information &amp; teknologi</a></li>
+    <li><a href="#ps"><span>12</span>Partnere &amp; leverandører</a></li>
+    <li><a href="#vsp"><span>13</span>Værdistrømme &amp; processer</a></li>
+    <li><a href="#gp"><span>14</span>Guiding principles</a></li>
+    <li><a href="#ci"><span>15</span>Continual improvement</a></li>
+  </ol>
+</aside>
+
+<main>
+<header>
+  <h1>ITIL 5 for udviklere</h1>
+  <p>Studienoter som diagrammer. Hver sektion slutter med en note om, hvordan det passer til det arbejde, du allerede laver.</p>
+  <div class="meta"><span>15 sektioner</span><span>ITIL (Version 5), 2026</span><span>fra notes.md</span></div>
+  <div class="cols c4" style="margin-top:40px">
+    <div><span class="k" style="color:var(--accent)">NYT I 5</span><h4>Products &amp; services</h4><p>Digitale produkter og services styres samlet som ét sammenhængende system.</p></div>
+    <div><span class="k" style="color:var(--accent)">NYT I 5</span><h4>8-stage lifecycle</h4><p>Erstatter ITIL 4's seks value chain-aktiviteter. Se sektion 07.</p></div>
+    <div><span class="k" style="color:var(--accent)">NYT I 5</span><h4>Experience</h4><p>User, customer og employee experience (UX, CX, EX) er en kernedisciplin.</p></div>
+    <div><span class="k" style="color:var(--accent)">NYT I 5</span><h4>AI governance</h4><p>Vejledning om AI-risiko, etik og tilsyn, plus et valgfrit AI governance-modul.</p></div>
+  </div>
+  <p class="cap">Uændret fra ITIL 4: de 7 guiding principles, de 4 dimensioner, de 5 dele af value system og alle 34 practices.</p>
+</header>
+
+<!-- 01 -->
+<section id="value">
+  <div class="label">01</div>
+  <h2>Value afgøres af brugeren</h2>
+  <p class="lead">Organisationen designer et produkt og håber, det skaber value. Servicen leverer det. Kun slutbrugeren afgør, om der er value.</p>
+
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 92" role="img" aria-label="Product, then service, then value">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="var(--dim)" stroke-width="1.5"/></marker></defs>
+      <rect x="0.5" y="0.5" width="200" height="90" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="20" y="34" class="t" font-size="16" font-weight="500">Product</text>
+      <text x="20" y="58" class="m" font-size="12.5">designet af organisationen</text>
+      <text x="20" y="75" class="d" font-size="12.5">håber at skabe value</text>
+      <line x1="210" y1="45" x2="270" y2="45" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="280.5" y="0.5" width="200" height="90" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="300" y="34" class="t" font-size="16" font-weight="500">Service</text>
+      <text x="300" y="58" class="m" font-size="12.5">leverer det til brugeren</text>
+      <line x1="490" y1="45" x2="550" y2="45" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="559.5" y="0.5" width="200" height="90" rx="8" fill="none" stroke="var(--accent)"/>
+      <text x="580" y="34" class="a" font-size="16" font-weight="500">Value</text>
+      <text x="580" y="58" class="m" font-size="12.5">vurderes af slutbrugeren,</text>
+      <text x="580" y="75" class="m" font-size="12.5">ikke af os</text>
+    </svg>
+  </div>
+
+  <h3>Output vs. outcome</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 150" role="img" aria-label="Activity, output, outcome, value. The provider controls activity and output; the user experiences outcome and value.">
+      <g font-size="12.5">
+        <rect x="0.5" y="0.5" width="168" height="76" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+        <text x="18" y="32" class="t" font-size="15" font-weight="500">Activity</text>
+        <text x="18" y="54" class="d">vi skriver kode</text>
+        <line x1="176" y1="38" x2="190" y2="38" stroke="var(--dim)" marker-end="url(#ar)"/>
+        <rect x="197.5" y="0.5" width="168" height="76" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+        <text x="215" y="32" class="t" font-size="15" font-weight="500">Output</text>
+        <text x="215" y="54" class="d">feature, release, rapport</text>
+        <line x1="373" y1="38" x2="387" y2="38" stroke="var(--dim)" marker-end="url(#ar)"/>
+        <rect x="394.5" y="0.5" width="168" height="76" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+        <text x="412" y="32" class="t" font-size="15" font-weight="500">Outcome</text>
+        <text x="412" y="54" class="d">“jeg booker et møde på 10 s”</text>
+        <line x1="570" y1="38" x2="584" y2="38" stroke="var(--dim)" marker-end="url(#ar)"/>
+        <rect x="591.5" y="0.5" width="168" height="76" rx="8" fill="none" stroke="var(--accent)"/>
+        <text x="609" y="32" class="a" font-size="15" font-weight="500">Value</text>
+        <text x="609" y="54" class="d">vurderes af brugeren</text>
+      </g>
+      <path d="M1 100 V108 H365 V100" fill="none" stroke="var(--line-2)"/>
+      <text x="183" y="132" text-anchor="middle" class="m" font-size="12.5">det vi leverer</text>
+      <path d="M395 100 V108 H759 V100" fill="none" stroke="var(--accent)" opacity=".7"/>
+      <text x="577" y="132" text-anchor="middle" class="m" font-size="12.5">det brugeren oplever</text>
+    </svg>
+  </div>
+  <div class="warn"><b>Bemærk:</b> dine noter har de to byttet om. I ITIL er <b>output</b> det, vi leverer. <b>Outcome</b> er det resultat, brugeren får ud af det.</div>
+
+  <h3>Vælge til eller fra</h3>
+  <div class="ledger" style="margin-top:0">
+    <div class="plus">
+      <span class="k">GIVER VALUE</span>
+      <div class="row"><span>Positive outcomes</span><span>+</span></div>
+      <div class="row"><span>Costs removed</span><span>+</span></div>
+      <div class="row"><span>Risks removed</span><span>+</span></div>
+    </div>
+    <div>
+      <span class="k">FJERNER VALUE</span>
+      <div class="row"><span>Negative outcomes</span><span>−</span></div>
+      <div class="row"><span>Costs introduced</span><span>−</span></div>
+      <div class="row"><span>Risks introduced</span><span>−</span></div>
+    </div>
+  </div>
+  <p class="cap">Costs og risks tælles for slutbrugeren og for alle, der giver servicen videre.</p>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>At shippe en feature er et <b>output</b>. Opgaven er først færdig, når brugerne får <b>outcome</b>. En feature, der tilføjer risiko, fx en ny dependency eller en migrering, kan sænke value, selv om den virker.</div>
+</section>
+
+<!-- 02 -->
+<section id="roles">
+  <div class="label">02</div>
+  <h2>Provider og consumer</h2>
+  <p class="lead">Begge sider har tre niveauer. SLA'en forbinder dem i midten. Tickets og support forbinder dem i bunden.</p>
+  <div class="fig scroll">
+    <svg viewBox="-70 0 990 460" role="img" aria-label="Two pyramids: provider and consumer, linked by SLA at tier 2 and contact and support at tier 3">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="var(--muted)" stroke-width="1.5"/></marker>
+        <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker>
+      </defs>
+      <text x="220" y="18" text-anchor="middle" class="d mono-t" font-size="13" letter-spacing="1.5">PROVIDER</text>
+      <text x="680" y="18" text-anchor="middle" class="d mono-t" font-size="13" letter-spacing="1.5">CONSUMER</text>
+
+      <g stroke="var(--line-2)">
+        <polygon points="220,40 276.8,160 163.2,160" fill="var(--panel-3)"/>
+        <polygon points="163.2,160 276.8,160 338.4,290 101.6,290" fill="var(--panel-2)"/>
+        <polygon points="101.6,290 338.4,290 400,420 40,420" fill="var(--panel-2)"/>
+        <polygon points="680,40 736.8,160 623.2,160" fill="var(--panel-3)"/>
+        <polygon points="623.2,160 736.8,160 798.4,290 561.6,290" fill="var(--panel-2)"/>
+        <polygon points="561.6,290 798.4,290 860,420 500,420" fill="var(--panel-2)"/>
+      </g>
+      <g text-anchor="middle">
+        <text x="220" y="140" class="m" font-size="14">Ledelse</text>
+        <text x="220" y="226" class="t" font-size="18" font-weight="500">Service level</text>
+        <text x="220" y="246" class="d" font-size="14">management, dev-teams</text>
+        <text x="220" y="356" class="t" font-size="18" font-weight="500">Service desk</text>
+        <text x="220" y="376" class="d" font-size="14">support, ops, devs</text>
+
+        <text x="680" y="132" class="t" font-size="14" font-weight="500">Sponsor</text>
+        <text x="680" y="148" class="d" font-size="12">betaler</text>
+        <text x="680" y="226" class="t" font-size="18" font-weight="500">Customer</text>
+        <text x="680" y="246" class="d" font-size="14">stiller krav</text>
+        <text x="680" y="356" class="t" font-size="18" font-weight="500">User</text>
+        <text x="680" y="376" class="d" font-size="14">bruger servicen dagligt</text>
+      </g>
+
+      <line x1="322" y1="225" x2="578" y2="225" stroke="var(--accent)" marker-start="url(#ar3)" marker-end="url(#ar3)"/>
+      <text x="450" y="212" text-anchor="middle" class="a" font-size="17" font-weight="500">SLA</text>
+      <text x="450" y="246" text-anchor="middle" class="d" font-size="13">forhandles begge veje</text>
+
+      <line x1="530" y1="332" x2="374" y2="332" stroke="var(--muted)" marker-end="url(#ar2)"/>
+      <text x="452" y="320" text-anchor="middle" class="m" font-size="14">kontakt, ticket</text>
+      <line x1="388" y1="384" x2="512" y2="384" stroke="var(--muted)" marker-end="url(#ar2)"/>
+      <text x="450" y="372" text-anchor="middle" class="m" font-size="14">support, løsning</text>
+
+      <path d="M-8 166 H-18 V414 H-8" fill="none" stroke="var(--accent)"/>
+      <text x="-36" y="290" text-anchor="middle" class="a mono-t" font-size="13" letter-spacing="1.5" transform="rotate(-90 -36 290)">UDVIKLERE ER HER</text>
+
+      <text x="450" y="452" text-anchor="middle" class="d" font-size="14">ITIL virker bedst, når begge sider bruger det</text>
+    </svg>
+  </div>
+  <p class="cap">I dag bruges ITIL mest af IT-virksomheder.</p>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Du arbejder på provider-siden i niveau 2 og 3. Du bygger det, SLA'en lover, og får eskalerede tickets fra service desk. Sponsor, customer og user kan ønske forskellige ting.</div>
+</section>
+
+<!-- 03 -->
+<section id="sla">
+  <div class="label">03</div>
+  <h2>Service Level Agreement</h2>
+  <p class="lead">Kontrakten mellem provider og customer. Den dækker fire områder.</p>
+  <div class="cols c4">
+    <div><span class="k">01</span><h4>Tilgængelighed</h4><ul><li>Uptime %</li><li>Deadlines</li></ul></div>
+    <div><span class="k">02</span><h4>Support</h4><ul><li>Åbningstider</li><li>Svartid</li><li>Løsningstid</li><li>Kontaktmetoder</li><li>Prioritetsniveauer</li></ul></div>
+    <div><span class="k">03</span><h4>Governance</h4><ul><li>Ansvarsområder</li><li>Opfølgningsmøder</li><li>Genforhandlingsdato</li></ul></div>
+    <div><span class="k">04</span><h4>Måling</h4><ul><li>Rapporteringsplan</li><li>CSF'er og KPI'er</li><li>Overholdt eller ej</li></ul></div>
+  </div>
+
+  <h3>Fra mål til tal</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 104" role="img" aria-label="CSF leads to KPI leads to target">
+      <rect x="0.5" y="0.5" width="226" height="102" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="18" y="28" class="d mono-t" font-size="11">CSF</text>
+      <text x="18" y="50" class="t" font-size="14" font-weight="500">Hvad skal lykkes</text>
+      <text x="18" y="80" class="m" font-size="12.5">“hurtig incident-respons”</text>
+      <line x1="234" y1="52" x2="258" y2="52" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="266.5" y="0.5" width="226" height="102" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="284" y="28" class="d mono-t" font-size="11">KPI</text>
+      <text x="284" y="50" class="t" font-size="14" font-weight="500">Tallet vi måler</text>
+      <text x="284" y="80" class="m" font-size="12.5">% P1 besvaret &lt; 15 min</text>
+      <line x1="500" y1="52" x2="524" y2="52" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="532.5" y="0.5" width="226" height="102" rx="8" fill="none" stroke="var(--accent)"/>
+      <text x="550" y="28" class="a mono-t" font-size="11">TARGET</text>
+      <text x="550" y="50" class="t" font-size="14" font-weight="500">Skrevet ind i SLA'en</text>
+      <text x="550" y="80" class="m" font-size="12.5">≥ 95 % pr. måned</text>
+    </svg>
+  </div>
+  <p class="cap">CSF = Critical Success Factor. KPI = Key Performance Indicator.</p>
+
+  <h3>En SLA er et loop</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 130" role="img" aria-label="SLA lifecycle: negotiate, agree, measure, report, review, then renegotiate">
+      <path d="M680 58 C680 6, 80 6, 80 50" fill="none" stroke="var(--accent)" stroke-dasharray="3 4" marker-end="url(#ar3)"/>
+      <text x="380" y="24" text-anchor="middle" class="a" font-size="12">genforhandlingsdato</text>
+      <line x1="80" y1="70" x2="680" y2="70" stroke="var(--line-2)"/>
+      <g>
+        <circle cx="80" cy="70" r="5" fill="var(--bg)" stroke="var(--text)"/>
+        <circle cx="230" cy="70" r="5" fill="var(--bg)" stroke="var(--text)"/>
+        <circle cx="380" cy="70" r="5" fill="var(--bg)" stroke="var(--text)"/>
+        <circle cx="530" cy="70" r="5" fill="var(--bg)" stroke="var(--text)"/>
+        <circle cx="680" cy="70" r="5" fill="var(--bg)" stroke="var(--text)"/>
+      </g>
+      <g text-anchor="middle" font-size="13.5">
+        <text x="80" y="100" class="t">Forhandl</text>
+        <text x="230" y="100" class="t">Aftal</text>
+        <text x="380" y="100" class="t">Mål KPI'er</text>
+        <text x="530" y="100" class="t">Rapportér</text>
+        <text x="680" y="100" class="t">Review-møde</text>
+      </g>
+    </svg>
+  </div>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Uptime % bestemmer dit error budget. 99,9 % giver ca. 43 minutters nedetid om måneden. Løsningstider afgør, om du skal have on-call. Læs SLA'en, før du designer arkitekturen.</div>
+</section>
+
+<!-- 04 -->
+<section id="support">
+  <div class="label">04</div>
+  <h2>Support-niveauer</h2>
+  <p class="lead">Tickets eskaleres opad. Hvert niveau får færre tickets, og hver ticket koster mere.</p>
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 250" role="img" aria-label="Support levels L0 to L3 as rising steps">
+      <g stroke="var(--line-2)">
+        <rect x="0.5" y="150.5" width="176" height="60" rx="6" fill="var(--panel-2)"/>
+        <rect x="194.5" y="110.5" width="176" height="100" rx="6" fill="var(--panel-2)"/>
+      </g>
+      <g stroke="var(--accent)">
+        <rect x="388.5" y="70.5" width="176" height="140" rx="6" fill="rgba(255,138,76,.06)"/>
+        <rect x="582.5" y="30.5" width="176" height="180" rx="6" fill="rgba(255,138,76,.10)"/>
+      </g>
+      <g font-size="14">
+        <text x="16" y="176" class="d mono-t" font-size="11.5">L0</text><text x="16" y="196" class="t" font-weight="500">Self-service</text>
+        <text x="210" y="136" class="d mono-t" font-size="11.5">L1</text><text x="210" y="156" class="t" font-weight="500">Service desk</text>
+        <text x="404" y="96" class="a mono-t" font-size="11.5">L2</text><text x="404" y="116" class="t" font-weight="500">Specialister</text>
+        <text x="598" y="56" class="a mono-t" font-size="11.5">L3</text><text x="598" y="76" class="t" font-weight="500">Eksperter, udviklere</text>
+      </g>
+      <line x1="0" y1="232" x2="752" y2="232" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <text x="0" y="250" class="d" font-size="11.5">mange tickets, billigt</text>
+      <text x="758" y="250" text-anchor="end" class="d" font-size="11.5">få tickets, dyrt</text>
+    </svg>
+  </div>
+  <div class="cols c4" style="margin-top:12px">
+    <div><span class="k">L0</span><p style="margin-top:6px">FAQ, chatbot og vejledninger. Brugeren tjekker dem, før de kontakter support.</p></div>
+    <div><span class="k">L1</span><p style="margin-top:6px">Første kontakt. Registrerer ticket og løser kendte problemer.</p></div>
+    <div><span class="k" style="color:var(--accent)">L2</span><p style="margin-top:6px">Teknisk support. Har dybere systemadgang og læser logs.</p></div>
+    <div><span class="k" style="color:var(--accent)">L3</span><p style="margin-top:6px">Kodeændringer, bugfixes og leverandører. Det dyreste niveau.</p></div>
+  </div>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Hver god FAQ-side eller tydelig fejlbesked flytter tickets ned til L0. Så får du tid til at bygge i stedet for at svare på tickets.</div>
+</section>
+
+<!-- 05 -->
+<section id="risk">
+  <div class="label">05</div>
+  <h2>Risikovurdering</h2>
+  <p class="lead">Start med en SWOT for at finde risiciene. Giv derefter hver risiko en score: R = impact × frequency, på en skala fra 1–5.</p>
+  <div class="risk">
+    <div class="fig" style="margin-top:0">
+      <div class="k" style="margin-bottom:12px">IMPACT ↑</div>
+      <div class="heat" id="heat"></div>
+      <div class="axes"><span>FREQUENCY →</span><span>R = I × F</span></div>
+    </div>
+    <div class="fig" style="margin-top:0">
+      <div class="swot">
+        <div><b>S</b><span>Strengths, intern</span></div>
+        <div class="hl"><b>W</b><span>Weaknesses, intern</span></div>
+        <div><b>O</b><span>Opportunities, ekstern</span></div>
+        <div class="hl"><b>T</b><span>Threats, ekstern</span></div>
+      </div>
+      <p class="cap">Weaknesses og threats bliver til rækker i risk register.</p>
+    </div>
+  </div>
+
+  <h3>Risk register</h3>
+  <div class="tbl scroll" style="margin-top:0">
+    <table>
+      <thead><tr><th>#</th><th>RISK</th><th>IMPACT</th><th>FREQ.</th><th>R</th><th>OWNER</th><th>INFO</th><th>SOP</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td class="s">Strømafbrydelse</td><td class="n">3–5</td><td class="n">1</td><td><span class="ri">3–5</span></td><td>—</td><td>—</td><td>Skift sikring</td></tr>
+        <tr><td class="n">2</td><td class="s">Fysisk hacking</td><td class="n">5</td><td class="n">1</td><td><span class="ri">5</span></td><td>Direktør, risk manager, sikkerhed</td><td>Se manual nr. X</td><td>Hvilke data? → Hvad har de gjort? → Informér → Definér skader</td></tr>
+        <tr><td class="n">3</td><td class="s">Cyberangreb</td><td class="n">1–5</td><td class="n">5</td><td><span class="ri hi">5–25</span></td><td>Direktør, risk manager, sikkerhed</td><td>—</td><td>Samme som #2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap"><b style="color:var(--muted);font-weight:500">Owner</b> er den person, der tager sig af problemet, når det sker. <b style="color:var(--muted);font-weight:500">SOP</b> er Standard Operating Procedure: trin, der er besluttet på forhånd.</p>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Et risk register svarer til threat modelling plus runbooks. En god SOP kan følges af en, der lige er blevet kaldt ud kl. 3 om natten.</div>
+</section>
+
+<!-- 06 -->
+<section id="practices">
+  <div class="label">06</div>
+  <h2>Fem practices du skal kende</h2>
+  <p class="lead">De hænger sammen i en kæde. Service level management måler hele kæden op mod SLA'en.</p>
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 250" role="img" aria-label="Incident leads to problem leads to change leads to configuration; service level management measures all">
+      <rect x="0.5" y="0.5" width="759" height="40" rx="6" fill="none" stroke="var(--accent)"/>
+      <text x="18" y="25" class="a" font-size="13.5" font-weight="500">Service level management</text>
+      <text x="742" y="25" text-anchor="end" class="d" font-size="12">måler alt op mod SLA'en</text>
+      <g stroke="var(--line-2)" stroke-dasharray="2 4">
+        <line x1="83" y1="41" x2="83" y2="96"/><line x1="276" y1="41" x2="276" y2="96"/><line x1="469" y1="41" x2="469" y2="96"/><line x1="676" y1="41" x2="676" y2="96"/>
+      </g>
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="0.5" y="96.5" width="166" height="70" rx="8"/>
+        <rect x="193.5" y="96.5" width="166" height="70" rx="8"/>
+        <rect x="386.5" y="96.5" width="166" height="70" rx="8"/>
+        <rect x="579.5" y="96.5" width="180" height="70" rx="8"/>
+      </g>
+      <g font-size="12">
+        <text x="16" y="126" class="t" font-size="14.5" font-weight="500">Incident</text><text x="16" y="148" class="d">genopret servicen hurtigt</text>
+        <text x="209" y="126" class="t" font-size="14.5" font-weight="500">Problem</text><text x="209" y="148" class="d">find root cause</text>
+        <text x="402" y="126" class="t" font-size="14.5" font-weight="500">Change</text><text x="402" y="148" class="d">ship rettelsen sikkert</text>
+        <text x="595" y="126" class="t" font-size="14.5" font-weight="500">Service config</text><text x="595" y="148" class="d">hvad afhænger af hvad</text>
+      </g>
+      <g stroke="var(--dim)" fill="none">
+        <line x1="168" y1="131" x2="190" y2="131" marker-end="url(#ar)"/>
+        <line x1="361" y1="131" x2="383" y2="131" marker-end="url(#ar)"/>
+        <line x1="554" y1="131" x2="576" y2="131" marker-end="url(#ar)"/>
+        <path d="M670 168 V206 H83 V172" stroke-dasharray="3 4" marker-end="url(#ar)"/>
+      </g>
+      <g class="d" font-size="11.5" text-anchor="middle">
+        <text x="180" y="88">gentager sig</text>
+        <text x="372" y="88">kræver rettelse</text>
+        <text x="565" y="88">opdatér</text>
+        <text x="376" y="230">opslag ved næste incident: hvad er påvirket?</text>
+      </g>
+    </svg>
+  </div>
+  <h3>De fem practices side om side</h3>
+  <div class="tbl scroll" style="margin-top:0">
+    <table class="pt">
+      <thead><tr><th></th><th>INCIDENT MGMT</th><th>PROBLEM MGMT</th><th>CHANGE CONTROL / ENABLEMENT</th><th>CONFIGURATION MGMT</th><th>SERVICE LEVEL MGMT</th></tr></thead>
+      <tbody>
+        <tr><th>Hvad</th>
+          <td>Små problemer for vores brugere.</td>
+          <td>Mange små incidents, der skyldes det samme, er et problem.</td>
+          <td>Ændringer sker kontrolleret, konsekvent og stabilt. De godkendes, før der arbejdes på dem.</td>
+          <td>Viden om IT-komponenter.</td>
+          <td>Laver service level agreements og skaber den rigtige value for brugeren.</td></tr>
+        <tr><th>Aktiviteter</th>
+          <td><ul class="tl"><li>Dokumentation</li><li>Brugerkontakt</li><li>Identifikation</li><li>Fejlfinding</li><li>Vejledning</li><li>FAQ</li><li>AI-chatbot</li></ul></td>
+          <td><ul class="tl"><li>Prioritere problemet</li><li>Fejlfinding</li><li>Root cause analysis</li><li>Løse problemet</li><li>Forebygge, at det sker igen</li></ul></td>
+          <td><ul class="tl"><li>Kontrollere processen</li><li>Godkende ændringer</li><li>Udføre godkendte ændringer</li></ul></td>
+          <td><ul class="tl"><li>Hardware</li><li>Software</li><li>Opdatere databasen</li><li>Dokumentation</li></ul></td>
+          <td><ul class="tl"><li>Krav til servicen</li><li>Overvågning</li><li>Hvad kan vi levere nu?</li></ul></td></tr>
+        <tr><th>Formål</th>
+          <td class="s">Genskabe servicen hurtigst muligt efter afbrydelser</td>
+          <td class="s">Sørge for stabil drift</td>
+          <td class="s">Reducere fejl og nedetid og kunne håndtere uforudsete hændelser</td>
+          <td class="s">Støtter alle de andre fire</td>
+          <td class="s">Den rigtige value for brugeren</td></tr>
+        <tr><th>Udviklere</th>
+          <td>—</td>
+          <td><span class="ri">Kan også sidde her</span></td>
+          <td><span class="ri hi">Sidder her</span></td>
+          <td>—</td>
+          <td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">ITIL 5 beholder alle 34 practices, men grupperer dem i to: general management og product &amp; service management. Den gamle technical management-gruppe er lagt ind i den sidste.</p>
+  <h3>Alle 34 practices</h3>
+  <div class="cols" style="margin-top:0">
+    <div><span class="k" style="color:var(--accent)">PRODUCT AND SERVICE MANAGEMENT PRACTICES · 22</span><ul class="plist"><li>Availability management</li><li>Business analysis</li><li>Capacity and performance management</li><li style="color:var(--text)">Change enablement</li><li>Deployment management</li><li style="color:var(--text)">Incident management</li><li>Infrastructure and platform management</li><li>Information security management</li><li>IT asset management</li><li>Monitoring and event management</li><li style="color:var(--text)">Problem management</li><li>Release management</li><li>Service catalogue management</li><li style="color:var(--text)">Service configuration management</li><li>Service continuity management</li><li>Service design</li><li>Service desk</li><li>Service financial management</li><li style="color:var(--text)">Service level management</li><li>Service request management</li><li>Service validation and testing</li><li>Software development and management</li></ul></div>
+    <div><span class="k" style="color:var(--accent)">GENERAL MANAGEMENT PRACTICES · 12</span><ul class="plist"><li>Architecture management</li><li>Continual improvement</li><li>Knowledge management</li><li>Measurement and reporting</li><li>Organizational change management</li><li>Portfolio management</li><li>Project management</li><li>Relationship management</li><li>Risk management</li><li>Strategy management</li><li>Supplier management</li><li>Workforce and talent management</li></ul></div>
+  </div>
+  <p class="cap">De fem practices ovenfor er fremhævet med hvidt.</p>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span><b>Et incident er ikke et problem.</b> Når du genstarter serveren, lukker du incidentet. Når du finder memory leaket, lukker du problemet.</div>
+</section>
+
+<!-- 07 -->
+<section id="svs">
+  <div class="label">07</div>
+  <h2>ITIL Value System</h2>
+  <p class="lead">ITIL 4 kaldte det <i>Service</i> Value System. En forespørgsel kommer ind, går gennem fem dele og kommer ud som value.</p>
+  <figure class="poster" style="margin-left:0;margin-right:0">
+    <img alt="ITIL (Version 5) Value System: opportunity/demand og value forbundet af value chain med de 8 stadier, omgivet af guiding principles, governance, practices og continual improvement, de fire dimensioner og eksterne faktorer" src="data:image/webp;base64,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">
+  </figure>
+  <p class="cap">ITIL (Version 5) Value System. Kilde: MetierWestergaard, ITIL (Version 5)-oversigtsplakat, baseret på PeopleCert ITIL®-materiale. Diagrammet nedenfor viser samme opbygning.</p>
+  <div class="svs">
+    <div class="io">Opportunity<br>&amp; demand<span class="k">INPUT</span></div>
+    <div class="box">
+      <div class="layer"><span><span class="no">1</span>Guiding principles</span><span>hvordan vi tænker</span></div>
+      <div class="layer"><span><span class="no">2</span>Governance</span><span>hvem beslutter og styrer</span></div>
+      <div class="chain">
+        <div class="head"><span><span class="no">3</span>ITIL value chain</span><span>product &amp; service lifecycle, 8 stadier</span></div>
+        <div class="acts acts8">
+          <div class="act"><span class="no">1</span><b>Discover</b><small>afstem roadmap med brugernes behov</small></div>
+          <div class="act"><span class="no">2</span><b>Design</b><small>prototyper, specs, UX</small></div>
+          <div class="act"><span class="no">3</span><b>Acquire</b><small>vælg cloud, biblioteker, leverandører</small></div>
+          <div class="act"><span class="no">4</span><b>Build</b><small>kode, integration, test</small></div>
+          <div class="act"><span class="no">5</span><b>Transition</b><small>release, deploy, onboarding af leverandører</small></div>
+          <div class="act"><span class="no">6</span><b>Operate</b><small>overvåg, hold det stabilt</small></div>
+          <div class="act"><span class="no">7</span><b>Deliver</b><small>onboarding af brugere, hold kvaliteten</small></div>
+          <div class="act"><span class="no">8</span><b>Support</b><small>incidents, disaster recovery, feedback</small></div>
+        </div>
+      </div>
+      <div class="layer"><span><span class="no">4</span>Practices</span><span>værktøjskassen: incident, change, …</span></div>
+      <div class="layer"><span><span class="no">5</span>Continual improvement</span><span>på alle niveauer, altid · <a href="#ci">sektion 15</a></span></div>
+    </div>
+    <div class="io out">Value<span class="k">OUTPUT</span></div>
+  </div>
+
+  <h3>Fra ITIL 4 til ITIL 5</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 -24 760 324" role="img" aria-label="Mapping from ITIL 4's six value chain activities to ITIL 5's eight lifecycle stages">
+      <text x="0" y="-8" class="d mono-t" font-size="11">ITIL 4 · VALUE CHAIN</text>
+      <text x="760" y="-8" text-anchor="end" class="d mono-t" font-size="11">ITIL 5 · LIFECYCLE</text>
+      <g fill="none" stroke="var(--dim)">
+        <path d="M220 37 C380 37,380 22,540 22" stroke-dasharray="3 4"/>
+        <path d="M220 129 C380 129,380 22,540 22" stroke-dasharray="3 4"/>
+        <path d="M220 175 C380 175,380 58,540 58"/>
+        <path d="M220 175 C380 175,380 166,540 166"/>
+        <path d="M220 221 C380 221,380 94,540 94"/>
+        <path d="M220 221 C380 221,380 130,540 130"/>
+        <path d="M220 267 C380 267,380 202,540 202"/>
+        <path d="M220 267 C380 267,380 238,540 238"/>
+        <path d="M220 267 C380 267,380 274,540 274"/>
+      </g>
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="0.5" y="20.5" width="219" height="33" rx="6"/>
+        <rect x="0.5" y="66.5" width="219" height="33" rx="6" fill="none" stroke-dasharray="3 3"/>
+        <rect x="0.5" y="112.5" width="219" height="33" rx="6"/>
+        <rect x="0.5" y="158.5" width="219" height="33" rx="6"/>
+        <rect x="0.5" y="204.5" width="219" height="33" rx="6"/>
+        <rect x="0.5" y="250.5" width="219" height="33" rx="6"/>
+        <rect x="540.5" y="8.5" width="219" height="27" rx="6" fill="none" stroke="var(--accent)"/>
+        <rect x="540.5" y="44.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="80.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="116.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="152.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="188.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="224.5" width="219" height="27" rx="6"/>
+        <rect x="540.5" y="260.5" width="219" height="27" rx="6"/>
+      </g>
+      <g font-size="13.5" class="t">
+        <text x="16" y="42">Plan</text>
+        <text x="16" y="88" class="d">Improve</text>
+        <text x="16" y="134">Engage</text>
+        <text x="16" y="180">Design &amp; transition</text>
+        <text x="16" y="226">Obtain / build</text>
+        <text x="16" y="272">Deliver &amp; support</text>
+        <text x="556" y="27" class="a">Discover</text>
+        <text x="556" y="63">Design</text>
+        <text x="556" y="99">Acquire</text>
+        <text x="556" y="135">Build</text>
+        <text x="556" y="171">Transition</text>
+        <text x="556" y="207">Operate</text>
+        <text x="556" y="243">Deliver</text>
+        <text x="556" y="279">Support</text>
+      </g>
+    </svg>
+  </div>
+  <p class="cap">Fuldt optrukne linjer: ITIL 4-aktiviteter, der er delt op i ITIL 5-stadier. Stiplede linjer: nærmeste match. Plan, Improve og Engage er ikke længere stadier i lifecycle. Discover ligger tættest på Plan og Engage, og continual improvement er stadig del 5 af value system.</p>
+
+  <h3>Guiding principles</h3>
+  <p class="lead" style="margin-top:0">De syv guiding principles er uændrede fra ITIL 4. De gennemgås i <a href="#gp">sektion 14</a>.</p>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>De 8 stadier minder om SDLC plus DevOps-drift, som du allerede kender. Det meste af din dag ligger i <b>build</b>, <b>transition</b> og <b>operate</b>.</div>
+</section>
+
+<!-- 08 -->
+<section id="dims">
+  <div class="label">08</div>
+  <h2>De fire dimensioner</h2>
+  <p class="lead" style="margin-top:4px;color:var(--dim)">ITIL 5 kalder dem de fire dimensioner af <i>product and service</i> management.</p>
+  <p class="lead">En service skal ses fra alle fire sider. Mangler én, fejler servicen. Eksterne faktorer (PESTLE) omgiver alle fire.</p>
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 470" role="img" aria-label="Four dimensions in a two by two grid around the service, surrounded by external PESTLE factors">
+      <rect x="0.5" y="12.5" width="759" height="457" rx="10" fill="none" stroke="var(--line-2)" stroke-dasharray="3 4"/>
+      <rect x="18" y="4" width="470" height="18" fill="var(--panel)"/>
+      <text x="28" y="17" class="d mono-t" font-size="11" letter-spacing="1">EXTERNAL · POLITICAL · ECONOMIC · SOCIAL · TECH · LEGAL · ENV</text>
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="40.5" y="48.5" width="335" height="195" rx="8"/>
+        <rect x="384.5" y="48.5" width="335" height="195" rx="8"/>
+        <rect x="40.5" y="252.5" width="335" height="195" rx="8"/>
+        <rect x="384.5" y="252.5" width="335" height="195" rx="8"/>
+      </g>
+      <g font-size="14">
+        <text x="62" y="80" class="d mono-t" font-size="11">HVEM</text>
+        <text x="62" y="104" class="t" font-size="18" font-weight="500">Organizations &amp; people</text>
+        <text x="62" y="130" class="m">Teamstruktur, roller, kompetencer,</text>
+        <text x="62" y="150" class="m">kultur. Hvem har on-call?</text>
+
+        <text x="698" y="80" text-anchor="end" class="d mono-t" font-size="11">MED HVAD</text>
+        <text x="698" y="104" text-anchor="end" class="t" font-size="18" font-weight="500">Information &amp; technology</text>
+        <text x="698" y="130" text-anchor="end" class="m">Stack, data, sikkerhed, værktøjer.</text>
+        <text x="698" y="148" text-anchor="end" class="m">Her lever din kode.</text>
+
+        <text x="62" y="374" class="d mono-t" font-size="11">HVORDAN</text>
+        <text x="62" y="398" class="t" font-size="18" font-weight="500">Value streams &amp; processes</text>
+        <text x="62" y="424" class="m">Idea → PR → CI → deploy → monitor</text>
+
+        <text x="698" y="374" text-anchor="end" class="d mono-t" font-size="11">MED HVEM</text>
+        <text x="698" y="398" text-anchor="end" class="t" font-size="18" font-weight="500">Partners &amp; suppliers</text>
+        <text x="698" y="424" text-anchor="end" class="m">Cloud, SaaS, biblioteker. Hvad er deres SLA?</text>
+      </g>
+      <circle cx="380" cy="248" r="56" fill="var(--bg)" stroke="var(--accent)"/>
+      <text x="380" y="246" text-anchor="middle" class="t" font-size="15" font-weight="500">Service</text>
+      <text x="380" y="266" text-anchor="middle" class="d" font-size="11.5">→ value</text>
+    </svg>
+  </div>
+  <p class="cap">PESTLE-eksempler: GDPR, NIS2-loven. Hver dimension gennemgås i sektion 10–13.</p>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Udviklere ser ofte kun på <b>information &amp; technology</b>. Et godt design fejler alligevel, hvis ingen kan supportere det, leverandøren går ned, eller ingen kan deploye det.</div>
+</section>
+
+<!-- 09 -->
+<section id="cheat">
+  <div class="label">09</div>
+  <h2>Cheat sheet</h2>
+  <p class="lead">ITIL-begreber ved siden af ting, du allerede kender.</p>
+  <div class="tbl scroll" style="margin-top:28px">
+    <table class="cheat" style="min-width:560px">
+      <thead><tr><th>ITIL</th><th>FOR UDVIKLERE</th><th>HVORFOR DET BETYDER NOGET</th></tr></thead>
+      <tbody>
+        <tr><td>Output vs. outcome</td><td>Merget PR vs. brugeren når sit mål</td><td>En opgave er færdig, når outcome sker</td></tr>
+        <tr><td>SLA</td><td>SLO, uptime-mål</td><td>Bestemmer dit error budget og on-call</td></tr>
+        <tr><td>Incident management</td><td>On-call, rollback, hotfix</td><td>Genopret først, undersøg bagefter</td></tr>
+        <tr><td>Problem management</td><td>Postmortem, root cause analysis</td><td>Forhindrer, at samme alarm vækker dig igen</td></tr>
+        <tr><td>Change enablement</td><td>PR review, CI/CD, feature flags</td><td>Ship hurtigt uden at ødelægge prod</td></tr>
+        <tr><td>Service config management</td><td>Infra-as-code, dependency graph</td><td>Ved, hvad en ændring påvirker</td></tr>
+        <tr><td>L0 support</td><td>Docs, gode fejlbeskeder</td><td>Færre tickets når dig på L3</td></tr>
+        <tr><td>Risk register + SOP</td><td>Threat model + runbooks</td><td>En plan klar, når noget går i stykker</td></tr>
+        <tr><td>8-stage lifecycle</td><td>SDLC + DevOps-drift</td><td>Samme idé, andre navne</td></tr>
+        <tr><td>Experience (UX/CX/EX)</td><td>UX design, DX</td><td>Value vurderes af mennesker, så oplevelsen tæller</td></tr>
+        <tr><td>AI governance</td><td>Regler for AI-features og coding agents</td><td>Risiko, etik og tilsyn for AI, du shipper eller bruger</td></tr>
+        <tr><td>Continual improvement</td><td>Retrospektiver</td><td>Sker på alle niveauer, hele tiden</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="op" lang="da">
+  <div class="label">10 · DIMENSION 1 AF 4</div>
+  <h2>Organisationer &amp; mennesker</h2>
+  <p class="lead">Hvem leverer servicen, og hvordan arbejder de sammen? Strukturen er vigtig, men det er kulturen, der afgør om folk skaber værdi.</p>
+
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 230" role="img" aria-label="Ledelse og medarbejdere forbundet af strategi nedad og gennemsigtighed opad, med tillid i midten, omgivet af kultur">
+      <rect x="0.5" y="0.5" width="759" height="229" rx="10" fill="none" stroke="var(--line-2)" stroke-dasharray="3 4"/>
+      <text x="20" y="26" class="d mono-t" font-size="11" letter-spacing="1">KULTUR · RAMMEN OM DET HELE</text>
+      <rect x="230.5" y="40.5" width="300" height="48" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="380" y="70" text-anchor="middle" class="t" font-size="15" font-weight="500">Ledelse</text>
+      <rect x="230.5" y="160.5" width="300" height="48" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="380" y="190" text-anchor="middle" class="t" font-size="15" font-weight="500">Medarbejdere</text>
+      <line x1="300" y1="92" x2="300" y2="154" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <text x="288" y="128" text-anchor="end" class="m" font-size="13">strategi kommunikeres</text>
+      <line x1="460" y1="156" x2="460" y2="94" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <text x="472" y="128" class="m" font-size="13">gennemsigtighed, feedback</text>
+      <text x="380" y="129" text-anchor="middle" class="a" font-size="14" font-weight="500">tillid</text>
+    </svg>
+  </div>
+
+  <div class="cols c3">
+    <div><span class="k">01</span><h4>Gennemsigtighed</h4><p>Ledelsen deler hvorfor, ikke kun hvad. Medarbejdere deler problemer tidligt.</p></div>
+    <div><span class="k">02</span><h4>Tillid</h4><p>Tillid mellem ledere og ansatte gør, at folk tør tage ansvar og melde fejl.</p></div>
+    <div><span class="k">03</span><h4>Strategi-kommunikation</h4><p>Alle skal kende målet for at kunne skabe værdi i deres eget arbejde.</p></div>
+  </div>
+
+  <h3>Kompetencer: T-formet profil</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 230" role="img" aria-label="T-formet kompetenceprofil: bred viden på tværs, dyb viden i eget område">
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="80.5" y="20.5" width="148" height="44" rx="4"/>
+        <rect x="232.5" y="20.5" width="148" height="44" rx="4"/>
+        <rect x="384.5" y="20.5" width="148" height="44" rx="4"/>
+        <rect x="536.5" y="20.5" width="148" height="44" rx="4"/>
+      </g>
+      <g text-anchor="middle" class="m" font-size="13">
+        <text x="154" y="47">forretning</text><text x="306" y="47">drift &amp; support</text>
+        <text x="458" y="47">sikkerhed</text><text x="610" y="47">UX</text>
+      </g>
+      <rect x="384.5" y="68.5" width="148" height="150" rx="4" fill="rgba(255,138,76,.12)" stroke="var(--accent)"/>
+      <text x="458" y="140" text-anchor="middle" class="a" font-size="14" font-weight="500">dit eget område</text>
+      <text x="458" y="160" text-anchor="middle" class="m" font-size="12.5">fx backend</text>
+      <text x="64" y="47" text-anchor="end" class="d mono-t" font-size="11">BRED</text>
+      <text x="548" y="145" class="d mono-t" font-size="11">DYB, SPECIALISERET</text>
+    </svg>
+  </div>
+  <p class="cap">Bred viden om de andre områder gør samarbejdet lettere. Specialiseret viden i dit eget område er dét, du bidrager med.</p>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Hvis du forstår lidt af drift, support og forretning, bygger du løsninger, som andre kan arbejde med. Det er værdi ud over koden.</div>
+</section>
+
+<!-- 11 -->
+<section id="it" lang="da">
+  <div class="label">11 · DIMENSION 2 AF 4</div>
+  <h2>Information &amp; teknologi</h2>
+  <p class="lead">To spørgsmål: Hvilken information kræver servicen? Hvilken teknologi understøtter den?</p>
+
+  <div class="cols c2">
+    <div>
+      <span class="k" style="color:var(--accent)">INFORMATION · HVAD VI VED</span>
+      <ul>
+        <li>Hvilke data skal servicen bruge og skabe?</li>
+        <li>Hvem skal have adgang, og hvornår?</li>
+        <li>Er data korrekte og opdaterede?</li>
+        <li>Sikkerhed og lovkrav (GDPR)</li>
+      </ul>
+    </div>
+    <div>
+      <span class="k" style="color:var(--accent)">TEKNOLOGI · HVAD VI BRUGER</span>
+      <ul>
+        <li>Passer det til vores arkitektur?</li>
+        <li>Kan det skalere, og hvad koster det?</li>
+        <li>Har vi kompetencerne til at drive det?</li>
+        <li>Bliver vi låst til én leverandør?</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>To eksempler</h3>
+  <div class="cols c2" style="margin-top:0">
+    <div><span class="k">INFORMATION</span><h4>Supportsagen</h4><p>En bruger melder en fejl. Servicedesken skal kende brugeren, systemet, SLA'en og om fejlen er set før. Mangler informationen, går der tid tabt.</p><div class="tags">information er et aktiv, ikke et biprodukt</div></div>
+    <div><span class="k">TEKNOLOGI</span><h4>Den smarte database</h4><p>Hurtig, men driften kender den ikke, backup understøtter den ikke, og licensen stiger hvert år. Teknisk godt, dårligt for servicen.</p><div class="tags">ITIL vælger ikke teknologien, det stiller spørgsmål</div></div>
+  </div>
+  <p class="cap">ITIL 5 tilføjer AI-governance: hvem må bruge AI til hvad, hvordan styres risikoen, og kan beslutningerne forklares?</p>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Udviklere arbejder i denne dimension: kode, data, logs og pipelines.</div>
+</section>
+
+<!-- 12 -->
+<section id="ps" lang="da">
+  <div class="label">12 · DIMENSION 3 AF 4</div>
+  <h2>Partnere &amp; leverandører</h2>
+  <p class="lead">Du kan ikke love mere, end dine leverandører kan levere. Se på, hvor afhængig servicen er af hver leverandør.</p>
+
+  <div class="fig scroll">
+    <svg viewBox="0 0 760 120" role="img" aria-label="Kunde, vores service der lover 99,9 procent, og leverandør der kun leverer 99 procent">
+      <defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 1L9 5L0 9" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+      <rect x="0.5" y="20.5" width="200" height="70" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="18" y="50" class="t" font-size="15" font-weight="500">Leverandør</text>
+      <text x="18" y="72" class="m" font-size="13">leverer 99 %</text>
+      <line x1="208" y1="55" x2="272" y2="55" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="280.5" y="20.5" width="200" height="70" rx="8" fill="none" stroke="var(--accent)"/>
+      <text x="298" y="50" class="t" font-size="15" font-weight="500">Vores service</text>
+      <text x="298" y="72" class="a" font-size="13">lover 99,9 % ✗</text>
+      <line x1="488" y1="55" x2="552" y2="55" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <rect x="560.5" y="20.5" width="199" height="70" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+      <text x="578" y="50" class="t" font-size="15" font-weight="500">Kunde</text>
+      <text x="578" y="72" class="m" font-size="13">forventer 99,9 %</text>
+      <text x="380" y="114" text-anchor="middle" class="d" font-size="12">Kæden er aldrig stærkere end det svageste led.</text>
+    </svg>
+  </div>
+
+  <h3>Hvad betyder forskellen? Nedetid pr. måned</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 130" role="img" aria-label="99,9 procent giver cirka 43 minutters nedetid, 99 procent giver cirka 7,3 timer">
+      <text x="0" y="26" class="t mono-t" font-size="13">99,9 %</text>
+      <rect x="80" y="12" width="59" height="20" rx="3" fill="var(--muted)"/>
+      <text x="150" y="27" class="m" font-size="13">≈ 43 min</text>
+      <text x="0" y="66" class="a mono-t" font-size="13">99 %</text>
+      <rect x="80" y="52" width="600" height="20" rx="3" fill="var(--accent)"/>
+      <text x="690" y="67" class="a" font-size="13">≈ 7,3 t</text>
+      <text x="0" y="112" class="d" font-size="12.5">Begge i serie: 99,9 % × 99 % ≈ 98,9 %. Vores egen nedetid lægges oven i leverandørens.</text>
+    </svg>
+  </div>
+
+  <h3>Sådan håndterer man afhængigheden</h3>
+  <div class="cols c3" style="margin-top:0">
+    <div><span class="k">01</span><h4>Krav i aftalen</h4><p>Leverandørens SLA skal mindst matche det, vi lover vores kunder.</p></div>
+    <div><span class="k">02</span><h4>Redundans</h4><p>En ekstra leverandør eller failover, så ét svagt led ikke vælter servicen.</p></div>
+    <div><span class="k">03</span><h4>Værdi af afhængigheden</h4><p>Leverandøren er specialist. Vi kan fokusere på det, vi selv er bedst til.</p></div>
+  </div>
+
+  <h3>NIS2: kravene gælder hele kæden</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 100" role="img" aria-label="NIS2-krav gælder os, vores leverandører og deres leverandører">
+      <rect x="0.5" y="10.5" width="759" height="58" rx="8" fill="rgba(255,138,76,.06)" stroke="var(--accent)" stroke-dasharray="3 4"/>
+      <text x="16" y="4" class="a mono-t" font-size="11" letter-spacing="1">NIS2</text>
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="20.5" y="22.5" width="200" height="34" rx="6"/>
+        <rect x="280.5" y="22.5" width="200" height="34" rx="6"/>
+        <rect x="540.5" y="22.5" width="200" height="34" rx="6"/>
+      </g>
+      <g font-size="13.5" class="t" text-anchor="middle">
+        <text x="120" y="44">Os</text><text x="380" y="44">Vores leverandør</text><text x="640" y="44">Deres leverandør</text>
+      </g>
+      <line x1="224" y1="39" x2="274" y2="39" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <line x1="484" y1="39" x2="534" y2="39" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <text x="0" y="94" class="d" font-size="12.5">Vi skal vide, hvem vi samarbejder med, og sikre, at de også overholder NIS2.</text>
+    </svg>
+  </div>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Hver ekstern API, cloud-tjeneste eller npm-pakke er en leverandør. Tjek deres SLA, før du bygger oven på dem.</div>
+</section>
+
+<!-- 13 -->
+<section id="vsp" lang="da">
+  <div class="label">13 · DIMENSION 4 AF 4</div>
+  <h2>Værdistrømme &amp; processer</h2>
+  <p class="lead">Hvordan skaber vi værdi for kunden? Værdistrømmen er hele forløbet. Processen er opskriften på ét trin i forløbet.</p>
+
+  <div class="cols c2">
+    <div><span class="k" style="color:var(--accent)">VÆRDISTRØM · HELE FORLØBET</span><p style="margin-top:8px">Alle trin fra kundens behov til værdi. Kun det, kunden har brug for, skal med. Find spild og ventetid, og gør forløbet mere effektivt.</p></div>
+    <div><span class="k" style="color:var(--accent)">PROCES · HVORDAN</span><p style="margin-top:8px">En struktureret opskrift: en liste over trin, man skal følge. Systematisk og ofte tegnet som et flowchart.</p></div>
+  </div>
+
+  <h3>Værdistrøm: find ventetiden</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 130" role="img" aria-label="Værdistrøm fra behov til værdi, hvor ventetid mellem trinene er spild">
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="0.5" y="20.5" width="110" height="50" rx="8"/>
+        <rect x="190.5" y="20.5" width="110" height="50" rx="8"/>
+        <rect x="380.5" y="20.5" width="110" height="50" rx="8"/>
+        <rect x="570.5" y="20.5" width="110" height="50" rx="8"/>
+      </g>
+      <g text-anchor="middle" class="t" font-size="13.5">
+        <text x="55" y="50">Behov</text><text x="245" y="50">Analyse</text><text x="435" y="50">Udvikling</text><text x="625" y="50">Release</text>
+      </g>
+      <g stroke="var(--accent)" stroke-dasharray="3 4">
+        <line x1="114" y1="45" x2="186" y2="45"/><line x1="304" y1="45" x2="376" y2="45"/><line x1="494" y1="45" x2="566" y2="45"/>
+      </g>
+      <g text-anchor="middle" class="a mono-t" font-size="11">
+        <text x="150" y="36">vent 2 d</text><text x="340" y="36">vent 5 d</text><text x="530" y="36">vent 3 d</text>
+      </g>
+      <line x1="684" y1="45" x2="704" y2="45" stroke="var(--dim)" marker-end="url(#ar)"/>
+      <text x="710" y="50" class="a" font-size="13.5">Værdi</text>
+      <text x="0" y="104" class="d" font-size="12.5">Den stiplede ventetid er spild. Kunden får ingen værdi, mens sagen ligger stille.</text>
+    </svg>
+  </div>
+  <div class="warn"><b>Hænger sammen med value chain (sektion 07).</b> Dine noter nævner plan, engage, design, decision, deliver, support og improve. "Decision" er ikke en aktivitet i ITIL. I ITIL 4 var der seks aktiviteter, og i ITIL 5 er der otte stadier.</div>
+
+  <h3>Proces: en fejl fra start til slut</h3>
+  <div class="fig scroll" style="margin-top:0">
+    <svg viewBox="0 0 760 200" role="img" aria-label="Incident-proces: registrér, kategorisér, prioritér, diagnosticér, løst? ja: luk, nej: eskalér og diagnosticér igen">
+      <g stroke="var(--line-2)" fill="var(--panel-2)">
+        <rect x="0.5" y="40.5" width="100" height="50" rx="8"/>
+        <rect x="124.5" y="40.5" width="100" height="50" rx="8"/>
+        <rect x="248.5" y="40.5" width="100" height="50" rx="8"/>
+        <rect x="372.5" y="40.5" width="110" height="50" rx="8"/>
+        <rect x="520.5" y="140.5" width="110" height="44" rx="8"/>
+      </g>
+      <polygon points="530,65 575,32 620,65 575,98" fill="var(--panel-3)" stroke="var(--line-2)"/>
+      <rect x="650.5" y="40.5" width="109" height="50" rx="8" fill="none" stroke="var(--accent)"/>
+      <g text-anchor="middle" font-size="13" class="t">
+        <text x="50" y="70">Registrér</text><text x="174" y="70">Kategorisér</text><text x="298" y="70">Prioritér</text>
+        <text x="427" y="70">Diagnosticér</text><text x="575" y="70">Løst?</text>
+        <text x="575" y="167">Eskalér L2/L3</text>
+        <text x="705" y="70" class="a">Luk</text>
+      </g>
+      <g stroke="var(--dim)" fill="none">
+        <line x1="102" y1="65" x2="120" y2="65" marker-end="url(#ar)"/>
+        <line x1="226" y1="65" x2="244" y2="65" marker-end="url(#ar)"/>
+        <line x1="350" y1="65" x2="368" y2="65" marker-end="url(#ar)"/>
+        <line x1="484" y1="65" x2="526" y2="65" marker-end="url(#ar)"/>
+        <line x1="622" y1="65" x2="646" y2="65" marker-end="url(#ar)"/>
+        <line x1="575" y1="100" x2="575" y2="136" marker-end="url(#ar)"/>
+        <path d="M518 162 H427 V95" marker-end="url(#ar)"/>
+      </g>
+      <g class="d" font-size="11.5">
+        <text x="626" y="56">ja</text><text x="582" y="122">nej</text>
+      </g>
+      <text x="0" y="22" class="d mono-t" font-size="11" letter-spacing="1">SAMME TRIN HVER GANG</text>
+    </svg>
+  </div>
+  <p class="cap">Fordi trinene er faste, kan alle følge processen, og ingen sager bliver glemt.</p>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Din pipeline er en værdistrøm: PR → review → CI → deploy. Ventetid på review er den mest almindelige form for spild.</div>
+</section>
+
+
+<!-- 14 -->
+<section id="gp" lang="da">
+  <div class="label">14</div>
+  <h2>Guiding principles</h2>
+  <p class="lead">Syv principper, der gælder for alle beslutninger, uanset practice eller situation. De er uændrede fra ITIL 4 til ITIL 5.</p>
+  <ol class="gp">
+    <li><div class="n">1</div><div>
+      <h4>Fokus på værdi<small>Focus on value</small></h4>
+      <p>Alt, vi gør, skal skabe value for kunden, direkte eller indirekte. Kunden afgør, hvad value er (sektion 01).</p>
+      <div class="q">Hvem er kunden, og hvad er value for dem?</div>
+      <div class="ex">Før du bygger en feature: hvilket problem løser den for brugeren?</div>
+    </div></li>
+    <li><div class="n">2</div><div>
+      <h4>Start hvor du er<small>Start where you are</small></h4>
+      <p>Smid ikke det eksisterende ud. Undersøg, hvad der allerede virker, og byg videre på det. Observér og mål selv i stedet for at gætte.</p>
+      <div class="fig scroll">
+        <svg viewBox="0 0 760 76" role="img" aria-label="Observér: hvad findes? → Genbrug det, der virker → Byg nyt, hvor det mangler">
+          <rect x="0.5" y="0.5" width="230" height="64" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+          <rect x="264.5" y="0.5" width="230" height="64" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+          <rect x="528.5" y="0.5" width="231" height="64" rx="8" fill="none" stroke="var(--accent)"/>
+          <line x1="236" y1="32" x2="258" y2="32" stroke="var(--dim)" marker-end="url(#ar)"/>
+          <line x1="500" y1="32" x2="522" y2="32" stroke="var(--dim)" marker-end="url(#ar)"/>
+          <g font-size="14" text-anchor="middle"><text x="115" y="37" class="t">Observér: hvad findes?</text><text x="379" y="37" class="t">Genbrug det, der virker</text><text x="644" y="37" class="a">Byg nyt, hvor det mangler</text></g>
+          
+        </svg>
+      </div>
+      <div class="q">Hvad har vi allerede, som vi kan bruge?</div>
+      <div class="ex">Refaktorér i stedet for at skrive alt om fra bunden.</div>
+    </div></li>
+    <li><div class="n">3</div><div>
+      <h4>Progress iteratively with feedback</h4>
+      <p>Del arbejdet op i små bidder. Lever, få feedback, justér. Hver iteration skal kunne give value for sig selv.</p>
+      <div class="fig scroll">
+        <svg viewBox="0 0 760 150" role="img" aria-label="Big bang med feedback til sidst sammenlignet med små iterationer med feedback hver gang">
+          <text x="0" y="40" class="m" font-size="13.5">Big bang</text>
+          <rect x="110.5" y="20.5" width="530" height="30" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/>
+          <text x="375" y="40" text-anchor="middle" class="d" font-size="12.5">6 måneders udvikling uden feedback</text>
+          <circle cx="660" cy="35.5" r="4" fill="var(--dim)"/>
+          <text x="672" y="40" class="d" font-size="12.5">for sent</text>
+          <text x="0" y="98" class="t" font-size="13.5">Iterativt</text>
+          <rect x="110.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="186" cy="93.5" r="4" fill="var(--accent)"/><rect x="200.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="276" cy="93.5" r="4" fill="var(--accent)"/><rect x="290.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="366" cy="93.5" r="4" fill="var(--accent)"/><rect x="380.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="456" cy="93.5" r="4" fill="var(--accent)"/><rect x="470.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="546" cy="93.5" r="4" fill="var(--accent)"/><rect x="560.5" y="80.5" width="66" height="26" rx="4" fill="var(--panel-2)" stroke="var(--line-2)"/><circle cx="636" cy="93.5" r="4" fill="var(--accent)"/>
+          <text x="0" y="140" class="d" font-size="12.5"><tspan fill="var(--accent)">●</tspan> = feedback. Fejl opdages efter få uger i stedet for efter et halvt år.</text>
+        </svg>
+      </div>
+      <div class="q">Hvad er det mindste, vi kan levere og få feedback på?</div>
+      <div class="ex">Små PR'er, sprints, feature flags og hyppige releases.</div>
+    </div></li>
+    <li><div class="n">4</div><div>
+      <h4>Collaborate and promote visibility</h4>
+      <p>Arbejd sammen på tværs af teams, og gør arbejdet synligt. Skjult arbejde giver dobbeltarbejde, overraskelser og beslutninger uden fakta.</p>
+      <div class="q">Hvem skal inddrages, og kan alle se, hvordan det går?</div>
+      <div class="ex">Åbne boards, delte dashboards og demoer for brugerne.</div>
+    </div></li>
+    <li><div class="n">5</div><div>
+      <h4>Think and work holistically</h4>
+      <p>Ingen service står alene. Se hele kæden fra behov til value og alle fire dimensioner (sektion 08).</p>
+      <div class="q">Hvad påvirker denne ændring ellers?</div>
+      <div class="ex">En ændring i din service kan påvirke support, drift og andre services.</div>
+    </div></li>
+    <li><div class="n">6</div><div>
+      <h4>Keep it simple and practical</h4>
+      <p>Brug så få trin som muligt for at nå resultatet. Fjern det, der ikke giver value. En proces, der er for kompliceret, bliver ikke fulgt.</p>
+      <div class="q">Giver dette trin value, eller kan det fjernes?</div>
+      <div class="ex">KISS og YAGNI: byg ikke det, du ikke har brug for endnu.</div>
+    </div></li>
+    <li><div class="n">7</div><div>
+      <h4>Optimize and automate</h4>
+      <p>Optimér først, automatisér bagefter. Automatiserer man en dårlig proces, får man bare en hurtig dårlig proces.</p>
+      <div class="fig scroll">
+        <svg viewBox="0 0 760 110" role="img" aria-label="Nuværende proces → Optimér: fjern spild → Automatisér">
+          <rect x="0.5" y="0.5" width="230" height="64" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+          <rect x="264.5" y="0.5" width="230" height="64" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/>
+          <rect x="528.5" y="0.5" width="231" height="64" rx="8" fill="none" stroke="var(--accent)"/>
+          <line x1="236" y1="32" x2="258" y2="32" stroke="var(--dim)" marker-end="url(#ar)"/>
+          <line x1="500" y1="32" x2="522" y2="32" stroke="var(--dim)" marker-end="url(#ar)"/>
+          <g font-size="14" text-anchor="middle"><text x="115" y="37" class="t">Nuværende proces</text><text x="379" y="37" class="t">Optimér: fjern spild</text><text x="644" y="37" class="a">Automatisér</text></g>
+          <text x="0" y="100" class="d" font-size="12.5">Rækkefølgen er vigtig: automatisering kommer til sidst.</text>
+        </svg>
+      </div>
+      <div class="q">Er processen god nok til at blive automatiseret?</div>
+      <div class="ex">CI/CD, men ryd op i processen, før du automatiserer den.</div>
+    </div></li>
+  </ol>
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Principperne hænger sammen. Små iterationer (3) gør det lettere at holde fokus på value (1) og at holde tingene simple (6).</div>
+</section>
+
+<!-- 15 -->
+<section id="ci" lang="da">
+  <div class="label">15</div>
+  <h2>Continual improvement</h2>
+  <p class="lead">Del 5 af value system og en general management practice. Modellen er en løkke med seks spørgsmål. Hvert spørgsmål giver et konkret resultat, og når man er igennem, starter man forfra.</p>
+  <div class="fig scroll">
+    <svg viewBox="-4 0 764 524" role="img" aria-label="Continual improvement-modellen: seks spørgsmål med hvert sit resultat, og en løkke tilbage til starten">
+      <text x="98" y="10" class="d mono-t" font-size="11" letter-spacing="1">SPØRGSMÅL</text>
+      <text x="458" y="10" class="d mono-t" font-size="11" letter-spacing="1">RESULTAT</text>
+      <rect x="80.5" y="20.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="46" class="t" font-size="15" font-weight="500">What is the vision?</text><text x="98" y="66" class="d" font-size="12.5">Hvad er visionen?</text><line x1="378" y1="50" x2="432" y2="50" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="20.5" width="319" height="60" rx="8" fill="none" stroke="var(--accent)"/><text x="458" y="46" class="m" font-size="13.5">Improvement vision aligned</text><text x="458" y="65" class="m" font-size="13.5">with business goals and objectives</text><line x1="225" y1="82" x2="225" y2="102" stroke="var(--dim)" marker-end="url(#ar)"/><rect x="80.5" y="104.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="130" class="t" font-size="15" font-weight="500">Where are we now?</text><text x="98" y="150" class="d" font-size="12.5">Hvor er vi nu?</text><line x1="378" y1="134" x2="432" y2="134" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="104.5" width="319" height="60" rx="8" fill="none" stroke="var(--line-2)"/><text x="458" y="139" class="m" font-size="13.5">Baseline assessment</text><line x1="225" y1="166" x2="225" y2="186" stroke="var(--dim)" marker-end="url(#ar)"/><rect x="80.5" y="188.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="214" class="t" font-size="15" font-weight="500">Where do we want to be?</text><text x="98" y="234" class="d" font-size="12.5">Hvor vil vi hen?</text><line x1="378" y1="218" x2="432" y2="218" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="188.5" width="319" height="60" rx="8" fill="none" stroke="var(--line-2)"/><text x="458" y="223" class="m" font-size="13.5">Next target state</text><line x1="225" y1="250" x2="225" y2="270" stroke="var(--dim)" marker-end="url(#ar)"/><rect x="80.5" y="272.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="298" class="t" font-size="15" font-weight="500">How do we get there?</text><text x="98" y="318" class="d" font-size="12.5">Hvordan kommer vi derhen?</text><line x1="378" y1="302" x2="432" y2="302" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="272.5" width="319" height="60" rx="8" fill="none" stroke="var(--line-2)"/><text x="458" y="307" class="m" font-size="13.5">Route to the next target state</text><line x1="225" y1="334" x2="225" y2="354" stroke="var(--dim)" marker-end="url(#ar)"/><rect x="80.5" y="356.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="382" class="t" font-size="15" font-weight="500">Take action!</text><text x="98" y="402" class="d" font-size="12.5">Gør det!</text><line x1="378" y1="386" x2="432" y2="386" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="356.5" width="319" height="60" rx="8" fill="none" stroke="var(--line-2)"/><text x="458" y="382" class="m" font-size="13.5">Improvement actions</text><text x="458" y="401" class="m" font-size="13.5">and experiments</text><line x1="225" y1="418" x2="225" y2="438" stroke="var(--dim)" marker-end="url(#ar)"/><rect x="80.5" y="440.5" width="290" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line-2)"/><text x="98" y="466" class="t" font-size="15" font-weight="500">Are we getting there?</text><text x="98" y="486" class="d" font-size="12.5">Når vi målet?</text><line x1="378" y1="470" x2="432" y2="470" stroke="var(--dim)" marker-start="url(#ar)" marker-end="url(#ar)"/><rect x="440.5" y="440.5" width="319" height="60" rx="8" fill="none" stroke="var(--line-2)"/><text x="458" y="475" class="m" font-size="13.5">New state assessment</text>
+      <path d="M78 470 H36 V50 H74" fill="none" stroke="var(--accent)" stroke-dasharray="3 4" marker-end="url(#ar3)"/><text x="22" y="260" text-anchor="middle" class="a" font-size="12.5" transform="rotate(-90 22 260)">How do we keep the momentum going? · Hvordan holder vi momentum?</text>
+    </svg>
+  </div>
+  <p class="cap">Venstre kolonne er spørgsmålet, højre kolonne er det, man har i hånden bagefter. Kilde: ITIL (Version 5)-oversigtsplakat, MetierWestergaard.</p>
+
+  <div class="cols c3">
+    <div><span class="k">1–3 · FORSTÅ</span><h4>Vision, nu og mål</h4><p>Kend målet, mål hvor du står (Start where you are), og sæt et realistisk næste mål.</p></div>
+    <div><span class="k">4–5 · HANDL</span><h4>Plan og handling</h4><p>Find vejen dertil, og tag små skridt. Eksperimenter er i orden (Progress iteratively).</p></div>
+    <div><span class="k">6 · TJEK</span><h4>Mål igen</h4><p>Sammenlign med baseline. Virkede det? Start så forfra for at holde momentum.</p></div>
+  </div>
+
+  <div class="dev"><span class="k">FOR UDVIKLERE</span>Modellen er en retrospektiv med tal på: mål fx deploy-tid før (baseline), lav en ændring, og mål igen bagefter.</div>
+</section>
+
+<footer>ITIL 5 studienoter</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  const heat=document.getElementById('heat');
+  const pins={'1,3':['R1'],'1,4':['R1'],'1,5':['R1','R2'],'5,1':['R3'],'5,2':['R3'],'5,3':['R3'],'5,4':['R3'],'5,5':['R3']};
+  for(let i=5;i>=1;i--){
+    const ax=document.createElement('div');ax.className='ax';ax.textContent=i;heat.appendChild(ax);
+    for(let f=1;f<=5;f++){
+      const r=i*f,c=document.createElement('div');
+      c.className='cell'+(r>=10?' hot':'');
+      c.style.background=`rgba(255,138,76,${(0.03+0.5*(r/25)**1.1).toFixed(3)})`;
+      c.title=`Impact ${i} × Frequency ${f} = ${r}`;
+      c.innerHTML=`<span>${r}</span>`;
+      const p=pins[f+','+i];
+      if(p){const w=document.createElement('div');w.className='pins';
+        p.forEach(id=>{const s=document.createElement('span');s.className='pin';s.textContent=id;w.appendChild(s)});c.appendChild(w)}
+      heat.appendChild(c);
+    }
+  }
+  heat.appendChild(document.createElement('div'));
+  for(let f=1;f<=5;f++){const a=document.createElement('div');a.className='ax';a.style.paddingTop='4px';a.textContent=f;heat.appendChild(a)}
+
+  const links=[...document.querySelectorAll('#toc a')];
+  const byId=Object.fromEntries(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('on'));byId[e.target.id]?.classList.add('on')}})},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section').forEach(s=>io.observe(s));
+})();
+</script>
+</body>
+</html>
