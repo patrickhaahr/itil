@@ -589,6 +589,11 @@ fjern "(realistisk eksempel)" og skriv det ind i indledningen
 
 er alle casens bulletpoints opfyldt i rapporten?
 
+
+=== Prompt 9: Præsentation
+Se powerpoint præsentationen. se mit git commit "feat: complete report". det er hvad jeg skal fremlægge om. kan du lave nye slides under "Patrick" som jeg skal fremlægge? tilføj mit navn på første slide også. Det handler om ITIL. læs [green-it-caseopgave.typ](green-it-caseopgave.typ) filen, det er rapporten. [notes.html](notes.html) er mine noter for ITIL.
+mindre teskst i mine slides. jeg skal nok sige det vigtige. brug the power of 5 powerpoint rule. show dont tell.
+
 == Hans' prompts
 Min del er skrevet med Claude (Claude Code). Først bad jeg om at få skrevet min del (opgave 3, Incident og Problem Management og de fire dimensioner) i samme stil som Thomas' tekst, så jeg bagefter kunne lære den og fremlægge den. Claude skrev derefter instruktionerne herunder til de AI-agenter, der lavede udkastene, og hvert udkast blev tjekket for ITIL-fejl og sprog og rettet. Til sidst blev teksten forkortet, så opgaven holder sig inden for sidetallet. Instruktionerne står ordret, på engelsk.
 
