@@ -271,4 +271,219 @@ En værdistrøm kombinerer aktiviteterne i Service Value Chain i en bestemt ræk
 
 #pagebreak()
 = Bilag: AI-prompts
-// Indsæt de prompts, du har brugt, hvis du anvender AI.
+== Thomas’ prompts
+
+
+=== Prompt 1: Opgave 1 og 2 skrives
+
+_Vedhæftet fil: IT service management 1 case.pdf_
+
+Jeg skal skrive de to første dele af en skoleopgave i IT Service Management (ITSM) med udgangspunkt i ITIL. Besvarelsen skal være på dansk og have et fagligt, men naturligt sprog, som passer til en elev på en IT-uddannelse. Skriv klart og forståeligt, og undgå unødigt kompliceret akademisk sprog.
+
+Opgaven tager udgangspunkt i virksomheden Green-IT.
+
+Green-IT startede oprindeligt som en virksomhed, der producerede hjælpemidler til landbruget, men har udviklet sig til i højere grad at levere IT-baserede løsninger. De arbejder blandt andet med staldovervågning, overvågning af dyr på friland og overvågning af kornafgrøder. Virksomheden fokuserer også på bæredygtige produkter og løsninger, som kan hjælpe landmænd med at arbejde mere effektivt og bæredygtigt.
+
+Green-IT har produktion, administration og Research & Development placeret forskellige steder. Den geografiske spredning giver udfordringer med koordinering. Virksomheden har også behov for at optimere og standardisere deres ITSM-processer for at sikre stabil drift og kontinuerlig forbedring. Green-IT overvejer desuden at udvide med salgskontorer og værksteder i flere jyske byer.
+
+Jeg skal KUN besvare følgende to dele:
+
+==== 1. Service og værdi
+
+Besvar følgende:
+
+===== Service
+
+Forklar begrebet Service ud fra ITIL med egne ord. Forklar derefter, hvordan Green-ITs IT-baserede overvågningsløsninger kan betragtes som services.
+
+===== Value
+
+Forklar begrebet Value ud fra ITIL. Beskriv derefter hvilken værdi Green-ITs services kan skabe for kunderne og for Green-IT selv.
+
+===== Co-creation
+
+Forklar begrebet co-creation. Vis med et konkret eksempel, hvordan Green-IT og deres kunder sammen kan være med til at skabe værdi.
+
+===== Output
+
+Forklar hvad output betyder i ITIL. Giv et konkret eksempel fra Green-IT.
+
+===== Outcome
+
+Forklar hvad outcome betyder i ITIL. Giv et konkret eksempel fra Green-IT, og gør tydeligt opmærksom på forskellen mellem output og outcome.
+
+===== Værdi for Green-ITs kunder
+
+Forklar hvilken værdi Green-ITs services skaber for deres kunder, fx:
+
+- bedre overvågning af dyr, stalde og afgrøder
+- hurtigere opdagelse af problemer
+- bedre beslutningsgrundlag
+- mindre spild
+- højere effektivitet
+- mere stabil drift
+- mulighed for en mere bæredygtig produktion
+
+Brug konkrete eksempler fra casen.
+
+===== Værdi for Green-IT som virksomhed
+
+Forklar hvilken værdi deres services skaber for Green-IT selv, fx:
+
+- højere kundetilfredshed
+- stærkere kunderelationer
+- mulighed for vækst
+- konkurrencefordele
+- mere effektiv drift
+- et stærkere brand inden for IT og bæredygtighed
+
+Kobl forklaringen til ITILs forståelse af værdiskabelse.
+
+
+==== 2. Service Level Agreements og risiko
+
+===== Service Level Agreement (SLA)
+
+Forklar kort og tydeligt hvad en Service Level Agreement er, og hvorfor en SLA er vigtig.
+
+Beskriv derefter, hvad Green-ITs SLA'er med deres kunder eksempelvis kan indeholde.
+
+Kom blandt andet ind på:
+
+- aftalt oppetid og tilgængelighed
+- responstid ved fejl
+- løsningstid ved forskellige typer fejl
+- supportens åbningstider
+- prioritering af kritiske og mindre kritiske incidents
+- vedligeholdelse og planlagte servicevinduer
+- backup og eventuel gendannelse
+- ansvar mellem Green-IT og kunden
+- hvordan kvaliteten af servicen bliver målt og fulgt op
+
+Brug gerne et konkret eksempel. Eksempelvis kan en overvågningsløsning til en landmand have et bestemt krav til oppetid, fordi længere nedetid kan betyde, at kunden ikke opdager problemer med dyr eller udstyr hurtigt nok.
+
+Forklar også hvorfor SLA'er er vigtige for både Green-IT og kunden. Kom fx ind på klare forventninger, kvalitet, ansvar, stabil drift og kundetilfredshed.
+
+===== Risiko
+
+Forklar hvilke risici Green-IT skal forholde sig til i forbindelse med deres IT-services.
+
+Kom som minimum ind på:
+
+*Driftsnedbrud*
+
+Forklar konsekvenserne hvis Green-ITs systemer eller overvågningsløsninger bliver utilgængelige.
+
+*Ændringer*
+
+Forklar hvilke risici der kan være, når Green-IT laver ændringer eller opdateringer i IT-systemerne, og hvorfor ændringer skal planlægges og testes.
+
+*Vækst og nye lokationer*
+
+Forklar hvilke nye risici der kan opstå, hvis Green-IT åbner salgskontorer og værksteder i flere byer, fx udfordringer med netværk, support, standardisering, kommunikation og koordinering.
+
+Kom også gerne ind på relevante risici som:
+
+- tab af data
+- backup-fejl
+- cyberangreb
+- hardware- og softwarefejl
+- manglende dokumentation
+- manglende medarbejderkompetencer
+- afhængighed af bestemte systemer eller leverandører
+
+For hver vigtig risiko skal du kort forklare:
+
+1. Hvad risikoen er.
+2. Hvilken konsekvens den kan få.
+3. Hvordan Green-IT kan reducere eller håndtere risikoen.
+
+
+==== Krav til besvarelsen
+
+Skriv besvarelsen som sammenhængende tekst med tydelige overskrifter og underoverskrifter.
+
+Brug ITIL-begreberne korrekt, men forklar dem med egne og forståelige ord.
+
+Kobl teorien direkte til Green-IT-casen. Undgå at skrive lange generelle ITIL-definitioner uden at forklare, hvordan de passer til virksomheden.
+
+Brug konkrete eksempler fra Green-IT, især deres overvågningsløsninger til landbrug.
+
+Sørg for at skelne tydeligt mellem:
+
+- Service og Value
+- Output og Outcome
+- Service Level Agreement og selve servicen
+- Risiko og konsekvens
+
+Besvarelsen skal cirka fylde 2-3 sider i Word med skriftstørrelse 11-12 og almindelig linjeafstand.
+
+Skriv på et niveau, der passer til en ITSM/ITIL-skoleopgave. Undgå at opfinde konkrete oplysninger om Green-IT, som ikke står i casen. Hvis du bruger et eksempel, som ikke direkte står i casen, skal det fremgå tydeligt, at det er et realistisk eksempel.
+
+Hele opgaven er vedhæftet i PDF format.
+
+=== Prompt 2: Google Docs
+
+Kan du oprette en google docs med det for mig?
+
+=== Prompt 3: Forkortelse
+
+6 sider er for meget, få det ned på 4, højst 5 sider
+
+=== Prompt 4: Yderligere forkortelse
+
+_Vedhæftet fil: notes.html_
+
+Den skal være forkortet yderligere, du kan også læse noterne her for inspiration:
+
+=== Prompt 5: Service Level Management
+
+Jeg skal også lave Service Level Management fra punkt 4
+
+=== Prompt 6: Præcisering af punkt 4
+
+Husk at det er fra punkt 4: ITIL-practices i praksis Med udgangspunkt i Green-ITs organisation, services og udfordringer skal I arbejde med de mest anvendte ITIL-practices. Side 2 af 2 Redegøre for formål og anvendelse af følgende practices:
+
+=== Prompt 7: Typst-fil i repoet
+
+Vi skal også have tilføjet vores del, i det her repo: E:\\Coding\\Skole\\itil Du skal ændre på: green-it-caseopgave.typ
+
+=== Prompt 8: Design af præsentation
+
+Make it look pretty, and stylized appropriately
+
+=== Prompt 9: Finjustering af præsentation
+
+some elements go out of the textbox, please fine tune the presentation
+
+=== Prompt 10: Design af dokument
+
+Can you make the google docs prettier and more stylized aswell? still following the guidelines of the assignement ofcourse (font size etc.)
+
+=== Prompt 11: Yderligere forkortelse
+
+Det skal forkortes yderligere.
+
+=== Prompt 12: Underoverskrifter
+
+Jeg tror ændringer og konsekvens på side 3, skal udskille sig mere fra de andre underskrifter
+
+=== Prompt 13: GitHub
+
+Det ser godt ud. Kan du tilføje det hele til github repoet?
+
+=== Prompt 14: Prompt-bilag
+
+Kan du lave mig en google doc, som indeholder alle mine prompts fra denne her samtale? uden dine svar
+
+== Patricks prompts
+
+=== Prompt 1: Typst-skabelon
+
+\@assignment.typ write a basic template for typst. see \@case.pdf
+
+dont do the assignment for me. just create the template with the 12 writing size. there needs to be an index and frontpage. fill in in headings for each "opgave". its in danish
+
+=== Prompt 2: Thomas’ AI-prompts
+
+Thomas-prompts.md tilføj dem i AI billag. Det er thomases prompts
