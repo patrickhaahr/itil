@@ -18,7 +18,7 @@
 
   #v(2cm)
   *Udarbejdet af:* \
-  Hans, Thomas, Patrick
+  Hans, Patrick, Thomas
 
   *Hold:* H5
 
@@ -33,7 +33,9 @@
 #counter(page).update(1)
 
 = Indledning
-// Skriv din indledning her.
+Green-IT er gået fra at være et smedefirma til at levere IT-baserede løsninger til overvågning af stalde, dyr på friland og kornafgrøder. Produktion og R&D ligger på adskilte lokationer, og nu overvejer virksomheden at åbne salgskontorer og værksteder i 2-3 jyske byer. Spredningen gør koordineringen svær, og virksomheden mangler standardiserede ITSM-processer.
+
+Som ITIL-konsulenter analyserer vi, hvordan Green-IT kan forbedre sin IT-drift. Vi beskriver først service og værdi, SLA'er og risici samt et forslag til Service Value Chain. Derefter gennemgår vi fem af de mest anvendte ITIL-practices og deres samspil. Til sidst beskriver vi de syv vejledende principper og de fire dimensioner. Casen beskriver ikke Green-ITs IT-drift i detaljer. Eksempler, der ikke står i casen, er derfor vores egne realistiske bud.
 
 = Opgave 1: Service og værdi
 
@@ -42,7 +44,7 @@
 === Service
 I ITIL 4 er en service en måde at skabe værdi for kunden på. Servicen hjælper kunden med at opnå de ønskede resultater, uden at kunden selv skal bære bestemte omkostninger og risici.
 
-Green-ITs overvågning af stalde, dyr og korn er derfor en service: landmanden får sensorer, app, alarmer og support (realistisk eksempel), mens Green-IT bærer risikoen ved driften.
+Green-ITs overvågning af stalde, dyr og korn er derfor en service: landmanden får sensorer, app, alarmer og support, mens Green-IT bærer risikoen ved driften.
 
 === Value
 Value (værdi) er i ITIL den opfattede fordel, nytte og betydning, som noget har for en interessent. Værdien er subjektiv: servicen er det, Green-IT leverer, mens værdien er det, kunden oplever at få ud af den.
@@ -50,7 +52,7 @@ Value (værdi) er i ITIL den opfattede fordel, nytte og betydning, som noget har
 En stalddrift værdsætter fx dyrevelfærd, mens en planteavler værdsætter data om kornet.
 
 === Co-creation
-Co-creation betyder, at værdi skabes i samarbejde. Fx angiver landmanden grænser for temperatur og fugt og melder falske alarmer tilbage, og Green-IT justerer systemet (realistisk eksempel).
+Co-creation betyder, at værdi skabes i samarbejde. Fx angiver landmanden grænser for temperatur og fugt og melder falske alarmer tilbage, og Green-IT justerer systemet.
 
 === Output
 Et output er det konkrete, som en service leverer. Hos Green-IT kan det være, at systemet sender en alarm til landmandens telefon, når temperaturen i stalden bliver for høj.
@@ -86,7 +88,7 @@ Et realistisk eksempel for en staldovervågning (tallene står ikke i casen):
   [Prioritet 3 – lav], [Fejl i rapport eller spørgsmål. Respons næste hverdag, løsning 5 hverdage],
   [Supportens åbningstider], [Hverdage kl. 8–16, med døgnvagt til kritiske fejl],
   [Vedligeholdelse], [Om natten, varslet 5 dage før, helst uden for høstsæsonen],
-  [Backup og gendannelse], [Daglig backup, højst 24 timers datatab, gendannelse inden for 8 timer],
+  [Backup og gendannelse], [Daglig backup af historiske data, højst 24 timers datatab. Historiske data gendannes inden for 8 timer; ved kritiske fejl genoprettes overvågning og alarmer inden for 4 timer],
   [Ansvar], [Green-IT: platform, sensorer og opdateringer. Kunden: strøm, internet og at reagere på alarmer],
   [Måling og opfølgning], [Månedlig rapport og kvartalsvist servicemøde],
 )
@@ -129,7 +131,7 @@ Samlet kræver risiciene standardiserede ITSM-processer, så SLA'ernes løfter k
 
 == Forslag til Green-ITs Service Value Chain
 
-I ITIL 4 er Service Value Chain kernen i Service Value System. Den omdanner efterspørgsel og muligheder til værdi gennem seks aktiviteter, der bruger practices og udveksler input og output med hinanden. Aktiviteterne er ikke afdelinger. Forslaget er, at hver aktivitet får en ansvarlig, og hver vigtig value stream en ejer, der følger opgaven på tværs af bygningen i byen, fabrikken og de nye kontorer (realistisk eksempel).
+I ITIL 4 er Service Value Chain kernen i Service Value System. Den omdanner efterspørgsel og muligheder til værdi gennem seks aktiviteter, der bruger practices og udveksler input og output med hinanden. Aktiviteterne er ikke afdelinger. Forslaget er, at hver aktivitet får en ansvarlig, og hver vigtig value stream en ejer, der følger opgaven på tværs af bygningen i byen, fabrikken og de nye kontorer.
 
 #table(
   columns: (auto, 1fr),
@@ -144,7 +146,7 @@ I ITIL 4 er Service Value Chain kernen i Service Value System. Den omdanner efte
 )
 
 === Eksempel på en value stream: ny staldovervågning
-En svineproducent nær et nyt kontor vil have staldovervågning (realistisk eksempel):
+En svineproducent nær et nyt kontor vil have staldovervågning:
 
 + *Engage:* Sælgeren afklarer stalde, målinger og serviceniveau.
 + *Design & transition:* R&D tilpasser opsætningen og grænserne for temperatur og luftfugtighed.
@@ -168,11 +170,37 @@ En svineproducent nær et nyt kontor vil have staldovervågning (realistisk ekse
 
 *Improve* gør fejl og erfaringer fra alle aktiviteter til forbedringer.
 
-Aktiviteterne er ikke et samlebånd, men kombineres efter behov. En sensorfejl kan starte i Engage, når landmanden ringer, gå til Deliver & support og ende i Improve, Design & transition og Obtain/build, hvis mange kunder har fejlen og R&D skal lave ny firmware (realistisk eksempel).
+Aktiviteterne er ikke et samlebånd, men kombineres efter behov. En sensorfejl kan starte i Engage, når landmanden ringer, gå til Deliver & support og ende i Improve, Design & transition og Obtain/build, hvis mange kunder har fejlen og R&D skal lave ny firmware.
 
 = Opgave 4: ITIL-practices i praksis
 
 == Change Control
+
+=== Formål
+Change Control skal sikre, at flest mulige ændringer lykkes. Practicen vurderer risikoen ved hver ændring og godkender den, før den gennemføres. Alle ændringer planlægges i en fælles change schedule. En change er at tilføje, ændre eller fjerne noget, der kan påvirke en service.
+
+=== Anvendelse
+ITIL skelner mellem tre typer:
+
+#table(
+  columns: (auto, 1fr),
+  inset: 6pt,
+  [*Type*], [*Hvordan den håndteres*],
+  [Standard], [Lav risiko og kendt forløb, så den er godkendt på forhånd, fx at oprette en ny landmand i appen],
+  [Normal], [Vurderes og godkendes af en change authority, hvis niveau afhænger af risikoen, fx en ny firmwareversion],
+  [Emergency], [Skal laves hurtigt for at løse en alvorlig incident og godkendes af en mindre gruppe, fx en akut sikkerhedsrettelse],
+)
+
+Change schedule viser, hvornår ændringerne udføres. Så støder de ikke sammen, og de lægges ikke i de tidsrum, hvor kunderne er mest afhængige af servicen.
+
+=== Eksempler hos Green-IT
+Når et salgskontor og værksted åbner i Jylland, skal netværk, adgang til ticketsystemet og forbindelsen til hostingudbyderen sættes op. Hver del bliver en normal change med en plan for test og tilbagerulning. Driften udfører den uden for staldenes travleste tidspunkter.
+
+R&D ruller en ny firmware til sensorerne ud til få kunder først og derefter til resten. En fejl rammer så kun få stalde.
+
+=== Stabil drift og mindre risiko
+Mange incidents skyldes ændringer. Change Control mindsker risikoen, fordi hver ændring bliver vurderet og testet og kan rulles tilbage. Change schedule forhindrer, at flere ændringer rammer samme system på én gang. Processen må dog ikke blive så tung, at nødvendige rettelser venter. Derfor bør Green-IT gøre så mange ændringer som muligt til standard changes.
+
 
 == Service Level Management
 
@@ -185,7 +213,7 @@ SLM arbejder i et fast forløb, som gentages: kundens krav afklares, servicenive
 Målene gøres konkrete med en CSF, der beskriver hvad der skal lykkes (fx at kritiske fejl løses hurtigt), og en KPI, som er tallet der måles (fx at 95 % af prioritet 1-incidents besvares inden 15 minutter).
 
 === Eksempler hos Green-IT
-En landmand med mange dyr i stald kan have brug for døgnsupport, mens en planteavler kan nøjes med hverdage, så SLA'erne får forskellige serviceniveauer (realistisk eksempel).
+En landmand med mange dyr i stald kan have brug for døgnsupport, mens en planteavler kan nøjes med hverdage, så SLA'erne får forskellige serviceniveauer.
 
 Green-IT rapporterer oppetid og løsningstider hver måned og aftaler forbedringer, hvis målene ikke nås. Når der åbnes nye kontorer, sikrer SLM samme serviceniveau overalt.
 
@@ -207,14 +235,14 @@ En incident er i ITIL 4 en uplanlagt afbrydelse eller forringelse af en service.
   [Registrer], [Ticket oprettes, når kunden eller overvågningen melder fejlen],
   [Prioriter], [Ud fra påvirkning og hast, som styrer tiderne i SLA'en],
   [Diagnosticer], [Servicedesk slår op i vidensbasen efter known errors og workarounds fra Problem Management],
-  [Eskaler], [L1 er servicedesk, L2 er specialister i drift og netværk, L3 er udviklere i R&D (realistisk eksempel)],
+  [Eskaler], [L1 er servicedesk, L2 er specialister i drift og netværk, L3 er udviklere i R&D],
   [Løs og luk], [Servicen genoprettes, kunden bekræfter, og løsningen dokumenteres],
 )
 
 Servicedesk er kundernes single point of contact, og ét fælles ticketsystem giver fabrik, bymidte og de kommende jyske værksteder samme overblik.
 
 === Eksempler hos Green-IT
-En sommernat holder sensorerne i en kvægstald op med at sende data, og vagten registrerer en prioritet 1-incident. L2 finder en fejl i gatewayens mobilforbindelse, og en tekniker kører ud med en reservegateway. Workaround: landmanden fører manuelt tilsyn. Værksteder i Jylland vil forkorte køreturen og dermed løsningstiden (realistisk eksempel).
+En sommernat holder sensorerne i en kvægstald op med at sende data, og vagten registrerer en prioritet 1-incident. L2 finder en fejl i gatewayens mobilforbindelse, og en tekniker kører ud med en reservegateway. Workaround: landmanden fører manuelt tilsyn. Værksteder i Jylland vil forkorte køreturen og dermed løsningstiden.
 
 Ligger fejlen i gatewayens software, går sagen til L3 i R&D, og rettelsen udrulles først efter godkendelse i Change Control. Rammer fejlen mange stalde samtidig, er det en major incident med én ansvarlig leder, kortere frister og løbende besked til berørte. Gentager fejlen sig, eller var det en major incident, oprettes et problem til Problem Management. Incidenten lukkes stadig, så snart servicen virker igen.
 
@@ -231,43 +259,92 @@ Problem Management mindsker sandsynligheden for og konsekvensen af incidents ved
 *Error control:* Mulige permanente løsninger vurderes. Kan en løsning betale sig, sendes den som change request til Change Control. Ellers beholdes known error og workaround og vurderes løbende.
 
 === Eksempler hos Green-IT
-Efter en firmwareopdatering melder 15 kunder på en uge, at sensorerne på dyr på friland mister forbindelsen om natten. Servicedesken genstarter gatewayen, men ser tendensen og opretter et problem (realistisk eksempel).
+Efter en firmwareopdatering melder 15 kunder på en uge, at sensorerne på dyr på friland mister forbindelsen om natten. Servicedesken genstarter gatewayen, men ser tendensen og opretter et problem.
 
-R&D finder root cause: firmwaren går i strømsparetilstand og vågner ikke ved svagt signal. Configuration Management viser, hvilke kunder der har firmwaren. Workarounden er at slå strømsparetilstanden fra i appen, og fejlen registreres som known error, så servicedesken, fabrikken og de jyske kontorer bruger samme workaround. Den rettede firmware rulles ud via Change Control (realistisk eksempel).
+R&D finder root cause: firmwaren går i strømsparetilstand og vågner ikke ved svagt signal. Configuration Management viser, hvilke kunder der har firmwaren. Workarounden er at slå strømsparetilstanden fra i appen, og fejlen registreres som known error, så servicedesken, fabrikken og de jyske kontorer bruger samme workaround. Den rettede firmware rulles ud via Change Control.
 
 === Sammenhæng med Incident Management
 Incident Management genopretter servicen, mens Problem Management fjerner årsagen. Incidents med samme årsag kobles til ét problem, og incidentdata er det vigtigste input. Et incident kan lukkes, selv om problemet er åbent, og known errors gør, at servicedesken løser fremtidige incidents hurtigere.
 
 == Configuration Management
 
+=== Formål
+Configuration Management skal sikre korrekt og pålidelig information om services og de komponenter, de bygger på. Informationen skal være til at finde, når der er brug for den. Komponenterne kaldes configuration items (CI'er) og kan være hardware, software, dokumentation og aftaler.
+
+=== Anvendelse
+Green-IT registrerer CI'erne og relationerne mellem dem i en CMDB (configuration management database). Relationerne er det vigtigste, fordi de viser, hvad der afhænger af hvad. Oplysningerne skal opdateres, helst automatisk, og kontrolleres jævnligt. Ellers stoler medarbejderne ikke på dem.
+
+=== Eksempler hos Green-IT
+For hver kunde registrerer Green-IT sensorer, gateway, firmwareversion, SIM-kort og teleselskab samt kundens SLA. Det giver overblik over systemer, hardware og software på tværs af fabrikken, bygningen i byen og de nye jyske kontorer.
+
+=== Fejlhåndtering og forandringsprocesser
+Ved en incident viser CMDB'en, hvilke kunder og services der er ramt, så servicedesken kan prioritere efter antallet af ramte kunder. I Problem Management viser den, hvad de berørte kunder har til fælles, fx samme firmware. Change Control bruger relationerne til at vurdere, hvad en ændring påvirker, før den godkendes. Når ændringen er gennemført, opdaterer driften CMDB'en.
+
 == Konkrete eksempler hos Green-IT
+Tabellen samler eksemplerne fra hver practice efter casens tre situationer.
+
+#table(
+  columns: (auto, 1fr),
+  inset: 6pt,
+  [*Situation*], [*Practices og eksempel*],
+  [Driftsforstyrrelser hos kunderne], [Incident Management genopretter forbindelsen til staldsensorerne, Problem Management finder fejlen i firmwaren, og SLM sætter fristerne],
+  [Ændringer ved nye lokationer], [Change Control godkender og planlægger netværk og systemadgang til de jyske kontorer, og SLM sikrer samme serviceniveau overalt],
+  [Overblik over systemer, hardware og software], [Configuration Management registrerer sensorer, gateways og firmware pr. kunde i CMDB'en],
+)
 
 == Sammenhæng mellem practices
+#table(
+  columns: (auto, 1fr),
+  inset: 6pt,
+  [*Sammenhæng*], [*Kort fortalt*],
+  [Incident og Problem], [Incident genopretter servicen, Problem undersøger årsagen og deler known errors og workarounds med servicedesken],
+  [Change Control og stabil drift], [Hver ændring vurderes, testes og kan rulles tilbage, så ændringer ikke skaber nye incidents],
+  [Configuration Management], [CMDB'en viser, hvad der er ramt ved en fejl, og hvad en ændring påvirker],
+  [Service Level Management], [Oversætter kundens krav til mål, som styrer prioriteringen i de andre practices],
+)
 
 == Samspil, stabil drift og kontinuerlig forbedring
+Når sensorer i flere stalde går ned, viser CMDB'en, hvilke kunder der er ramt, og SLA'en afgør prioriteten. Incident Management får kunderne i gang igen, og Problem Management finder årsagen. R&D gennemfører rettelsen via Change Control, og driften opdaterer CMDB'en. Til sidst viser SLM's rapport, om målene blev holdt.
+
+Hvert gennemløb giver data til forbedring. Gentagne incidents bliver til problemer, og known errors gør servicedesken hurtigere. Afvigelser fra SLA'en tager Green-IT op på næste opfølgningsmøde med kunden, hvor de aftaler, hvad der skal forbedres.
 
 = Opgave 5: ITILs vejledende principper og dimensioner
 
 == De syv vejledende principper
+ITIL 4 har syv vejledende principper, som gælder for alle beslutninger, uanset practice eller situation.
+
+*Fokus på værdi.* Alt, Green-IT gør, skal skabe værdi for kunden, og det er kunden, der afgør, hvad værdi er. En ny funktion i appen er kun værd at bygge, hvis landmanden får bedre dyrevelfærd eller mindre spild ud af den.
+
+*Start hvor du er.* Det, der virker, skal ikke smides ud. Green-IT kan bygge de jyske kontorer på fabrikkens eksisterende processer og ticketsystem i stedet for at starte forfra.
+
+*Gør fremskridt iterativt med feedback.* Del arbejdet op i små bidder, som hver giver værdi. Green-IT kan fx åbne ét jysk kontor først, lære af det og så åbne de næste.
+
+*Samarbejd og fremme synlighed.* Skjult arbejde giver dobbeltarbejde og beslutninger uden fakta. R&D, salg og drift bør dele ticketsystem og CMDB, så R&D kan se de fejl, landmændene melder.
+
+*Tænk og arbejd helhedsorienteret.* Staldovervågningen afhænger af sensorer, teleselskaber, hosting, app og support. Green-IT skal derfor vurdere en ændring ud fra hele kæden.
+
+*Hold det simpelt og praktisk.* Brug så få trin som muligt, og fjern det, der ikke giver værdi. En proces, der er for kompliceret, bliver ikke fulgt, fx hvis hver lille ændring kræver et møde.
+
+*Optimér og automatisér.* Fjern først de unødvendige trin i en proces, og automatisér den bagefter. Automatiserer man en proces med fejl, sker fejlene bare hurtigere. Når incident-processen er på plads, kan alarmer fra sensorerne oprette tickets automatisk.
 
 == De fire dimensioner af service management
 
 ITIL 4 beskriver fire dimensioner, som skal ses samlet og i balance for hver service: organisationer og mennesker, information og teknologi, partnere og leverandører samt værdistrømme og processer. Overses én af dem, kan servicen ikke leveres som forventet. Udenom ligger eksterne faktorer (PESTLE), for Green-IT fx GDPR, NIS2 og stigende krav til bæredygtighed i landbruget.
 
 === Organisationer og mennesker
-Dimensionen handler om struktur, roller, kompetencer og kultur. Med administration og R&D i byen og produktion og salg på fabrikken kan der opstå en "dem og os"-kultur, hvor R&D udvikler sensorer uden at tale med sælgerne, der kender landmændenes behov (realistisk eksempel). Green-IT bør have klare roller, fx en ejer af staldovervågningen og en fast vagtordning, og en kultur, hvor fejl meldes tidligt. De jyske kontorer skal have de samme roller fra første dag.
+Dimensionen handler om struktur, roller, kompetencer og kultur. Med administration og R&D i byen og produktion og salg på fabrikken kan der opstå en "dem og os"-kultur, hvor R&D udvikler sensorer uden at tale med sælgerne, der kender landmændenes behov. Green-IT bør have klare roller, fx en ejer af staldovervågningen og en fast vagtordning, og en kultur, hvor fejl meldes tidligt. De jyske kontorer skal have de samme roller fra første dag.
 
 === Information og teknologi
-Sensordata om stalde, dyr og kornafgrøder er kernen i Green-ITs services, så dataejerskabet skal være klart. Fx ejer landmanden sine data, mens Green-IT må bruge anonymiserede data til produktudvikling (realistisk eksempel). Persondata er omfattet af GDPR, og adgangen skal styres, så hver landmand kun ser sine egne data. Teknologien skal kunne skalere med de nye kontorer, være sikret og ikke låse Green-IT til én leverandør. Fælles ticketsystem og CMDB giver R&D og driften samme overblik.
+Sensordata om stalde, dyr og kornafgrøder er kernen i Green-ITs services, så dataejerskabet skal være klart. Fx ejer landmanden sine data, mens Green-IT må bruge anonymiserede data til produktudvikling. Persondata er omfattet af GDPR, og adgangen skal styres, så hver landmand kun ser sine egne data. Teknologien skal kunne skalere med de nye kontorer, være sikret og ikke låse Green-IT til én leverandør. Fælles ticketsystem og CMDB giver R&D og driften samme overblik.
 
 === Partnere og leverandører
-Green-IT afhænger af en hostingudbyder (realistisk eksempel), sensorleverandører og teleselskaber, der sender data fra marker og stalde. Leverandørernes nedetid lægges oven i Green-ITs egen, så kritiske dele kan have failover til et andet datacenter. Er Green-IT omfattet af NIS2, gælder sikkerhedskravene også leverandørkæden. Bæredygtighed bør tælle ved valg af leverandører, fx energieffektiv hosting og sensorer, der kan repareres og genbruges.
+Green-IT afhænger af en hostingudbyder, sensorleverandører og teleselskaber, der sender data fra marker og stalde. Leverandørernes nedetid lægges oven i Green-ITs egen, så kritiske dele kan have failover til et andet datacenter. Er Green-IT omfattet af NIS2, gælder sikkerhedskravene også leverandørkæden. Bæredygtighed bør tælle ved valg af leverandører, fx energieffektiv hosting og sensorer, der kan repareres og genbruges.
 
 === Værdistrømme og processer
-En værdistrøm kombinerer aktiviteterne i Service Value Chain i en bestemt rækkefølge, fx fra salgets første møde med landmanden over installation til drift og support. En proces er sammenhængende aktiviteter, der omdanner input til output, fx hvordan en incident registreres og løses. Værdistrømmen krydser fabrikken og bygningen i byen, og det er i overgangene, sagerne venter. Kortlægning afslører spild, fx en ordre, der ligger i dagevis, før værkstedet får besked (realistisk eksempel). Faste processer sikrer, at alle lokationer arbejder ens.
+En værdistrøm kombinerer aktiviteterne i Service Value Chain i en bestemt rækkefølge, fx fra salgets første møde med landmanden over installation til drift og support. En proces er sammenhængende aktiviteter, der omdanner input til output, fx hvordan en incident registreres og løses. Værdistrømmen krydser fabrikken og bygningen i byen, og det er i overgangene, sagerne venter. Kortlægning afslører spild, fx en ordre, der ligger i dagevis, før værkstedet får besked. Faste processer sikrer, at alle lokationer arbejder ens.
 
 = Afslutning
-// Skriv din afslutning her.
+Green-ITs services skaber værdi, når landmanden får sundere dyr og mindre spild. Det kræver stabil drift, også på de nye kontorer. Vi anbefaler, at Green-IT indfører klare SLA'er, et fælles ticketsystem og en CMDB. Incident Management, Problem Management og Change Control skal kobles sammen, så fejl ikke gentager sig. Green-IT bør indføre ændringerne trinvist, fx ét jysk kontor ad gangen, og tage højde for alle fire dimensioner.
 
 #pagebreak()
 = Bilag: AI-prompts
@@ -484,9 +561,33 @@ Kan du lave mig en google doc, som indeholder alle mine prompts fra denne her sa
 
 dont do the assignment for me. just create the template with the 12 writing size. there needs to be an index and frontpage. fill in in headings for each "opgave". its in danish
 
-=== Prompt 2: Thomas’ AI-prompts
+=== Prompt 2: Fordeling af opgaven
+
+\@case.pdf how should we split this assignment between 3 people? assignment 4 takes the most time so share it. person 1 needs to finish and present a day earlier because hes travelling, give him a bit less and stuff he can finish alone. the other two take the rest. make it fair and show who does what.
+
+=== Prompt 3: Thomas’ AI-prompts
 
 Thomas-prompts.md tilføj dem i AI billag. Det er thomases prompts
+
+=== Prompt 4: Gennemgang af mine ændringer
+
+\[Image \#1\] jeg er person 3. git diff er mine ændringer. læs \@case.pdf og \@notes.html hvad mangler der i opgaven?
+
+=== Prompt 5: Rettelser
+
+fix
+
+=== Prompt 6: Tomme overskrifter
+
+hjælp mig med at fylde de tomme overskrifter, så vi har alt med.
+
+=== Prompt 7: Realistiske eksempler
+
+fjern "(realistisk eksempel)" og skriv det ind i indledningen
+
+=== Prompt 8: Casens bulletpoints
+
+er alle casens bulletpoints opfyldt i rapporten?
 
 == Hans' prompts
 Min del er skrevet med Claude (Claude Code). Først bad jeg om at få skrevet min del (opgave 3, Incident og Problem Management og de fire dimensioner) i samme stil som Thomas' tekst, så jeg bagefter kunne lære den og fremlægge den. Claude skrev derefter instruktionerne herunder til de AI-agenter, der lavede udkastene, og hvert udkast blev tjekket for ITIL-fejl og sprog og rettet. Til sidst blev teksten forkortet, så opgaven holder sig inden for sidetallet. Instruktionerne står ordret, på engelsk.
