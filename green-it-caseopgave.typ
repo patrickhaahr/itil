@@ -593,7 +593,11 @@ er alle casens bulletpoints opfyldt i rapporten?
 Min del er skrevet med Claude (Claude Code). Først bad jeg om at få skrevet min del (opgave 3, Incident og Problem Management og de fire dimensioner) i samme stil som Thomas' tekst, så jeg bagefter kunne lære den og fremlægge den. Claude skrev derefter instruktionerne herunder til de AI-agenter, der lavede udkastene, og hvert udkast blev tjekket for ITIL-fejl og sprog og rettet. Til sidst blev teksten forkortet, så opgaven holder sig inden for sidetallet. Instruktionerne står ordret, på engelsk.
 
 === Prompt 1: Min anmodning
-Jeg er person 2: opgave 3 hele, Incident Management og Problem Management fra opgave 4, og de fire dimensioner fra opgave 5. Skriv et udkast i samme stil som Thomas' del, og lær mig det bagefter, så jeg kan fremlægge det.
+Claude spurgte, hvordan jeg ville arbejde, og jeg valgte: "Jeg skriver udkast, du lærer mig. Jeg skriver et udkast i samme stil som Thomas' del, og bagefter gennemgår vi det, så du kan fremlægge det fredag."
+
+Fordelingen i gruppen gav person 2 opgave 3 hele, Incident Management og Problem Management fra opgave 4 og de fire dimensioner fra opgave 5. Jeg skrev:
+
+"jeg er person 2"
 
 === Prompt 2: Fælles instruktion til alle afsnit
 ```text
