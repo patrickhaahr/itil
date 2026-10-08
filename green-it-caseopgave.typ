@@ -487,3 +487,48 @@ dont do the assignment for me. just create the template with the 12 writing size
 === Prompt 2: Thomas’ AI-prompts
 
 Thomas-prompts.md tilføj dem i AI billag. Det er thomases prompts
+
+== Hans' prompts
+Min del er skrevet med Claude (Claude Code). Først bad jeg om at få skrevet min del (opgave 3, Incident og Problem Management og de fire dimensioner) i samme stil som Thomas' tekst, så jeg bagefter kunne lære den og fremlægge den. Claude skrev derefter instruktionerne herunder til de AI-agenter, der lavede udkastene, og hvert udkast blev tjekket for ITIL-fejl og sprog og rettet. Til sidst blev teksten forkortet, så opgaven holder sig inden for sidetallet. Instruktionerne står ordret, på engelsk.
+
+=== Prompt 1: Min anmodning
+Jeg er person 2: opgave 3 hele, Incident Management og Problem Management fra opgave 4, og de fire dimensioner fra opgave 5. Skriv et udkast i samme stil som Thomas' del, og lær mig det bagefter, så jeg kan fremlægge det.
+
+=== Prompt 2: Fælles instruktion til alle afsnit
+```text
+You are writing part of a Danish school assignment (TEC Ballerup, IT Service Management 1) for a group of three students. Read these files first:
+- The case and assignment text: <scratchpad>/case.txt
+- The group's Typst document with the parts already written by a teammate (Opgave 1, Opgave 2 and Service Level Management in Opgave 4): /Users/hans/Skole/itil/green-it-caseopgave.typ . Match its style exactly: plain, concrete Danish, short paragraphs, "=== " subheadings, *bold* labels only where the teammate uses them, invented figures marked "(realistisk eksempel)" like the teammate does, Green-IT examples about staldovervågning, dyr på friland and kornafgrøder, the planned offices and workshops in 2-3 Jutland towns, and the geographic spread between the old building in town (administration, direction, R&D) and the factory (production, purchasing, sales).
+- Study notes on ITIL from the course: <scratchpad>/itil.txt (the teammate's text uses ITIL 4 terms; use ITIL 4 terms too, e.g. Service Value Chain with the six activities Plan, Improve, Engage, Design & transition, Obtain/build, Deliver & support).
+Hard rules for the text:
+- Danish only, Typst markup (headings with ==/===, tables with #table like the teammate). Output ONLY the Typst text for your section, starting with the given heading line. No preamble.
+- Never use em dashes or en dashes (no "—" and no "–" except inside the existing document). Use commas, periods or colons instead.
+- Do not repeat what Opgave 1, Opgave 2 or the SLM section already explain; refer to them briefly instead ("se opgave 2").
+- Be correct about ITIL 4. Do not invent ITIL facts. Invented company specifics must be marked "(realistisk eksempel)".
+- The whole assignment must fit 8-10 pages at 12 pt, and the teammate's part is already about 4.5 pages, so stay within your word budget.
+```
+
+=== Prompt 3: Opgave 3: Service Value Chain (about 450 to 550 words)
+```text
+Write the whole of "= Opgave 3: Service Value Chain" with its two subsections exactly as in the document: "== Forslag til Green-ITs Service Value Chain" and "== Aktiviteternes bidrag til værdiskabelse og stabil drift". Propose a concrete value chain for Green-IT: walk the six activities with a Green-IT example each (a table like the teammate's is welcome), and show one value stream through the chain, e.g. a landmand who orders staldovervågning, or a sensor fault being handled. Then explain how the activities contribute to value creation and stable operation, and that the activities are combined into value streams, not run as a fixed sequence. Start your output with the line "= Opgave 3: Service Value Chain".
+```
+
+=== Prompt 4: Incident Management (about 250 to 320 words)
+```text
+Write the section "== Incident Management" for Opgave 4, with the same subsection pattern the teammate used for SLM: "=== Formål", "=== Anvendelse", "=== Eksempler hos Green-IT". Use the case example "håndtering af driftsforstyrrelser på kundernes overvågningsløsninger". Cover the incident flow (registrer, kategoriser, prioriter, diagnosticer, eskaler L1/L2/L3, løs, luk), priorities tied to the SLA in opgave 2, and the service desk across the locations. Start with "== Incident Management".
+```
+
+=== Prompt 5: Problem Management (about 230 to 300 words)
+```text
+Write the section "== Problem Management" for Opgave 4 with "=== Formål", "=== Anvendelse", "=== Eksempler hos Green-IT". Cover problem identification (trend in repeated incidents), problem control (root cause analysis, workaround, known error) and error control, with a Green-IT example such as repeated lost connections from sensors on friland after a firmware update (realistisk eksempel). End with one or two sentences on the link to Incident Management (incident restores service fast, problem removes the cause; known errors help the service desk solve future incidents faster) because the case asks for "sammenhængen mellem Incident Management og Problem Management". Start with "== Problem Management".
+```
+
+=== Prompt 6: De fire dimensioner (about 400 to 480 words)
+```text
+Write the section "== De fire dimensioner af service management" for Opgave 5. Briefly say what the four dimensions are and that a service must be seen from all four, surrounded by external factors (PESTLE, e.g. GDPR, NIS2, bæredygtighedskrav). Then one subsection each: "=== Organisationer og mennesker", "=== Information og teknologi", "=== Partnere og leverandører", "=== Værdistrømme og processer", each with its meaning for Green-IT (culture and roles across the split locations and new offices, sensor data and platform and data ownership, hosting and sensor suppliers and their SLA versus the promise in Green-IT's SLA, value streams like the one in opgave 3). Start with "== De fire dimensioner af service management".
+```
+
+=== Prompt 7: Forkortelse
+```text
+The text is one section of a Danish ITIL 4 school assignment in Typst markup. Read the assignment in <scratchpad>/case.txt and the current section text in <scratchpad>/itsm/person2.json (key given below). Shorten it to at most the given number of words while keeping every element the assignment asks for, the Green-IT examples, ITIL correctness, the "(realistisk eksempel)" markers, Typst validity and the heading lines. Remove repetition, side remarks and anything that repeats opgave 1, 2 or the SLM section. No em or en dashes. Output only the Typst text.
+```
